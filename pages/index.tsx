@@ -1,10 +1,13 @@
 import styled from "@emotion/styled"
+import Image from "next/image"
+import playlistImage from "../public/images/playlist.png"
+import heartImage from "../public/images/heart.svg"
 
 export default function Home() {
   return (
     <Container>
       <PlaylistHeader>
-        <PlaylistImage src="/images/playlist.png" />
+        <Image alt="" src={playlistImage} />
         <PlaylistDetails>
           <h1>
             <PlaylistTag>PLAYLIST</PlaylistTag><br />
@@ -15,7 +18,7 @@ export default function Home() {
           <PlaylistActions>
             <PlaylistPlayButton>PLAY</PlaylistPlayButton>
             <PlaylistLikeButton>
-              <PlaylistLikeIcon src="/images/heart.svg" />
+              <PlaylistLikeIcon as={Image} src="/images/heart.svg" height="20px" width="20px" />
             </PlaylistLikeButton>
           </PlaylistActions>
         </PlaylistDetails>
@@ -35,10 +38,6 @@ const PlaylistHeader = styled.header`
   background: linear-gradient(to bottom, #373737, #111111);
   padding: 1rem;
   display: flex;
-`
-
-const PlaylistImage = styled.img`
-
 `
 
 const PlaylistDetails = styled.div`
