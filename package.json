@@ -11,11 +11,13 @@
   "dependencies": {
     "@emotion/eslint-plugin": "^11.2.0",
     "@emotion/react": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
     "next": "11.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@emotion/babel-plugin": "^11.3.0",
     "@types/react": "17.0.14",
     "eslint": "7.30.0",
     "eslint-config-next": "11.0.1",
