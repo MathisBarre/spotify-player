@@ -1,9 +1,26 @@
+import { useEffect } from "react"
+import { useQuery, gql } from "@apollo/client"
 import styled from "@emotion/styled"
+
 import Image from "next/image"
 import PlaylistHeader from "../components/PlaylistHeader"
 import heartImage from "../public/images/heart.svg"
 
 export default function Home() {
+  const { loading, error, data } = useQuery(gql`
+    query getPlaylist {
+      launchesPast(limit: 10) {
+        mission_name
+      }
+    }
+  `)
+
+  useEffect(() => {
+    console.log(`loading: ${loading}`)
+    console.log(`error:  ${error}`)
+    console.log(data)
+  }, [loading, error, data])
+
   return (
     <Container>
       <PlaylistHeader />
