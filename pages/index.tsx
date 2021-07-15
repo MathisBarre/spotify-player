@@ -10,10 +10,16 @@ interface IhomeProps {
 }
 
 export default function Home({ playlist }: IhomeProps) {
+  console.log(playlist)
   return (
     <Container>
-      <PlaylistHeader />
-      <Tracks playlist={playlist} />
+      <PlaylistHeader
+        name={playlist.name}
+        description={playlist.description}
+        author={playlist.owner.display_name}
+        nbOfTracks={playlist.tracks.length}
+      />
+      <Tracks tracks={playlist.tracks} />
     </Container>
   )
 }

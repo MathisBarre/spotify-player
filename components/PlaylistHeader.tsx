@@ -3,17 +3,30 @@ import styled from "@emotion/styled"
 import playlistImage from "../public/images/playlist.png"
 import heartImage from "../public/images/heart.svg"
 
-export default function PlaylistHeader() {
+interface IplaylistHeaderProps {
+  name: string,
+  description: string,
+  author: string,
+  nbOfTracks: number
+}
+
+export default function PlaylistHeader({ name, description, author, nbOfTracks } : IplaylistHeaderProps ) {
+  function getAuthorProfileUrl(authorName: string) {
+    return `#/user/${authorName.replace(" ", "-").toLocaleLowerCase()}`
+  }
+
   return (
     <PlaylistHeaderContainer>
       <Image alt="" src={playlistImage} />
       <PlaylistDetails>
         <h1>
           <PlaylistTag>PLAYLIST</PlaylistTag><br />
-          <PlaylistTitle>Rituel Days 2019</PlaylistTitle>
+          <PlaylistTitle>{name}</PlaylistTitle>
         </h1>
-        <PlaylistDescription>La playlist non officielle du festival</PlaylistDescription>
-        <PlaylistInformations>Created by <PlaylistAuthor href="#/user/sylvain-cr">Sylvain Cr</PlaylistAuthor> • 50 songs, 5 hr 38 min</PlaylistInformations>
+        <PlaylistDescription>{description}</PlaylistDescription>
+        <PlaylistInformations>
+          Created by <PlaylistAuthor href={getAuthorProfileUrl(author)}> {author} </PlaylistAuthor> • {nbOfTracks} songs
+        </PlaylistInformations>
         <PlaylistActions>
           <PlaylistPlayButton>PLAY</PlaylistPlayButton>
           <PlaylistLikeButton>
