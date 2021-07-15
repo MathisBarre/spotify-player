@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import Image from "next/image"
 import heartImage from "../public/images/heart.svg"
 import { Iplaylist, Itrack } from "../types/api"
+import dayjs from "dayjs"
 interface TracksProps {
   playlist: Iplaylist
 }
@@ -16,7 +17,7 @@ export default function Tracks({ playlist }: TracksProps) {
             <TableLabel>Title</TableLabel>
             <TableLabel>Artist</TableLabel>
             <TableLabel>Album</TableLabel>
-            <TableLabel>Release date</TableLabel>
+            <TableLabel>Date added</TableLabel>
           </tr>
         </thead>
         <tbody>
@@ -27,7 +28,7 @@ export default function Tracks({ playlist }: TracksProps) {
                 <TableCell>{trackInfos.track.name}</TableCell>
                 <TableCell>{trackInfos.track.artists[0].name}</TableCell>
                 <TableCell>{trackInfos.track.album.name}</TableCell>
-                <TrackReleaseDate>{trackInfos.added_at}</TrackReleaseDate>
+                <TrackReleaseDate>{dayjs(trackInfos.added_at).format("YYYY-MM-DD")}</TrackReleaseDate>
               </TrackRow>
             )
           }) }
