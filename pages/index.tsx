@@ -1,12 +1,17 @@
-import { useEffect } from "react"
 import { useQuery, gql } from "@apollo/client"
 import styled from "@emotion/styled"
 
 import PlaylistHeader from "../components/PlaylistHeader"
 import Tracks from "../components/Tracks"
 
+import { Iplaylist } from "../types/api"
+
+interface Idata {
+  playlists: Iplaylist[]
+}
+
 export default function Home() {
-  const { loading, error, data } = useQuery(gql`
+  const { loading, error, data } = useQuery<Idata>(gql`
     query getPlaylist {
       playlists {
         description
@@ -35,7 +40,7 @@ export default function Home() {
   return (
     <Container>
       <PlaylistHeader />
-      { loading ? <Loading /> : error ? <DisplayError /> : <Tracks playlist={data.playlists[0]} />}
+      { loading ? <Loading /> : (error || data === undefined) ? <DisplayError /> : <Tracks playlist={data.playlists[0]} />}
     </Container>
   )
 }

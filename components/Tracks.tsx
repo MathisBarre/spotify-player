@@ -1,9 +1,9 @@
 import styled from "@emotion/styled"
 import Image from "next/image"
 import heartImage from "../public/images/heart.svg"
-
+import { Iplaylist, Itrack } from "../types/api"
 interface TracksProps {
-  playlist: any //! Need typing
+  playlist: Iplaylist
 }
 
 export default function Tracks({ playlist }: TracksProps) { 
@@ -20,9 +20,9 @@ export default function Tracks({ playlist }: TracksProps) {
           </tr>
         </thead>
         <tbody>
-          { playlist.tracks.map((trackInfos: any, index: number) => { //! Need typing
+          { playlist.tracks.map((trackInfos: Itrack, index: number) => { //! Need typing
             return (
-              <TrackRow key={trackInfos.added_at + index}>
+              <TrackRow key={`${trackInfos.added_at}${index}`}>
                 <TableCell><Image src={heartImage} alt="like unfilled" /></TableCell>
                 <TableCell>{trackInfos.track.name}</TableCell>
                 <TableCell>{trackInfos.track.artists[0].name}</TableCell>
