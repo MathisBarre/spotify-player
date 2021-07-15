@@ -8,23 +8,47 @@ import Tracks from "../components/Tracks"
 export default function Home() {
   const { loading, error, data } = useQuery(gql`
     query getPlaylist {
-      launchesPast(limit: 10) {
-        mission_name
+      playlists {
+        description
+        name
+        owner {
+          display_name
+        }
+        tracks {
+          added_at
+          track {
+            album {
+              name
+            }
+            artists {
+              name
+            }
+            name
+            preview_url
+            type
+          }
+        }
       }
     }
   `)
 
-  useEffect(() => {
-    console.log(`loading: ${loading}`)
-    console.log(`error:  ${error}`)
-    console.log(data)
-  }, [loading, error, data])
-
   return (
     <Container>
       <PlaylistHeader />
-      <Tracks />
+      { loading ? <Loading /> : error ? <DisplayError /> : <Tracks playlist={data.playlists[0]} />}
     </Container>
+  )
+}
+
+function Loading() {
+  return (
+    <p>Loading...</p>
+  )
+}
+
+function DisplayError() {
+  return (
+    <p>Error during data fetching...</p>
   )
 }
 

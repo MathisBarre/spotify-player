@@ -2,7 +2,11 @@ import styled from "@emotion/styled"
 import Image from "next/image"
 import heartImage from "../public/images/heart.svg"
 
-export default function Tracks() {
+interface TracksProps {
+  playlist: any //! Need typing
+}
+
+export default function Tracks({ playlist }: TracksProps) { 
   return (
     <TracksContainer>
       <TracksTable>
@@ -16,13 +20,17 @@ export default function Tracks() {
           </tr>
         </thead>
         <tbody>
-          <TrackRow>
-            <TableCell><Image src={heartImage} alt="like unfilled" /></TableCell>
-            <TableCell>Madeleine - Original Mix</TableCell>
-            <TableCell>Konstantin Siberique</TableCell>
-            <TableCell>Secret Weapon</TableCell>
-            <TrackReleaseDate>2019-05-08</TrackReleaseDate>
-          </TrackRow>
+          { playlist.tracks.map((trackInfos: any, index: number) => { //! Need typing
+            return (
+              <TrackRow key={trackInfos.added_at + index}>
+                <TableCell><Image src={heartImage} alt="like unfilled" /></TableCell>
+                <TableCell>{trackInfos.track.name}</TableCell>
+                <TableCell>{trackInfos.track.artists[0].name}</TableCell>
+                <TableCell>{trackInfos.track.album.name}</TableCell>
+                <TrackReleaseDate>{trackInfos.added_at}</TrackReleaseDate>
+              </TrackRow>
+            )
+          }) }
         </tbody>
       </TracksTable>
     </TracksContainer>
