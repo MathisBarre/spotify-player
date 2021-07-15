@@ -1,9 +1,9 @@
 interface Ialbum {
-  name: String
+  name: string
 }
 
 interface Iartist {
-  name: String
+  name: string
 }
 
 enum ItrackType {
@@ -13,23 +13,23 @@ enum ItrackType {
 interface ItrackDetail {
   album: Ialbum
   artists: Iartist[],
-  name: String,
-  preview_url: String,
+  name: string,
+  preview_url: string,
   interface: ItrackType
 }
 
 export interface Itrack {
-  added_at: String,
+  added_at: string,
   track: ItrackDetail
 }
 
 interface Iowner {
-  display_name: String
+  display_name: string
 }
 
 export interface Iplaylist {
-  name: String,
-  description: String,
+  name: string,
+  description: string,
   owner: Iowner,
   tracks: Itrack[]
 }
