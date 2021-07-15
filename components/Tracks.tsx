@@ -3,11 +3,11 @@ import Image from "next/image"
 import heartImage from "../public/images/heart.svg"
 import { Iplaylist, Itrack } from "../types/api"
 import dayjs from "dayjs"
-interface TracksProps {
+interface ItracksProps {
   playlist: Iplaylist
 }
 
-export default function Tracks({ playlist }: TracksProps) { 
+export default function Tracks({ playlist }: ItracksProps) { 
   return (
     <TracksContainer>
       <TracksTable>
