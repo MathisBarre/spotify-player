@@ -11,15 +11,16 @@ enum ItrackType {
 }
 
 interface ItrackDetail {
+  id: number
   album: Ialbum
-  artists: Iartist[],
-  name: string,
-  preview_url: string,
+  artists: Iartist[]
+  name: string
+  preview_url: string
   interface: ItrackType
 }
 
 export interface Itrack {
-  added_at: string,
+  added_at: string
   track: ItrackDetail
 }
 
@@ -28,8 +29,8 @@ interface Iowner {
 }
 
 export interface Iplaylist {
-  name: string,
-  description: string,
-  owner: Iowner,
+  name: string
+  description: string
+  owner: Iowner
   tracks: Itrack[]
 }

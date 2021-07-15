@@ -4,13 +4,13 @@ import client from "../utils/apollo-client";
 import PlaylistHeader from "../components/PlaylistHeader"
 import Tracks from "../components/Tracks"
 import { Iplaylist } from "../types/api"
+import { GetStaticProps } from "next";
 
 interface IhomeProps {
   playlist: Iplaylist
 }
 
 export default function Home({ playlist }: IhomeProps) {
-  console.log(playlist)
   return (
     <Container>
       <PlaylistHeader
@@ -30,7 +30,7 @@ const Container = styled.main`
   color: white;
 `
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const { data } = await client.query({
     query: gql`
       query getPlaylist {
@@ -43,6 +43,7 @@ export async function getStaticProps() {
           tracks {
             added_at
             track {
+              id
               album {
                 name
               }

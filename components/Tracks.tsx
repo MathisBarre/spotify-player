@@ -1,13 +1,13 @@
 import styled from "@emotion/styled"
 import Image from "next/image"
 import heartImage from "../public/images/heart.svg"
-import { Iplaylist, Itrack } from "../types/api"
+import { Itrack } from "../types/api"
 import dayjs from "dayjs"
 interface ItracksProps {
-  playlist: Iplaylist
+  tracks: Itrack[]
 }
 
-export default function Tracks({ playlist }: ItracksProps) { 
+export default function Tracks({ tracks }: ItracksProps) { 
   return (
     <TracksContainer>
       <TracksTable>
@@ -21,10 +21,10 @@ export default function Tracks({ playlist }: ItracksProps) {
           </tr>
         </thead>
         <tbody>
-          { playlist.tracks.map((trackInfos: Itrack, index: number) => { //! Need typing
+          { tracks.map((trackInfos: Itrack, index: number) => {
             return (
-              <TrackRow key={`${trackInfos.added_at}${index}`}>
-                <TableCell><Image src={heartImage} alt="like unfilled" /></TableCell>
+              <TrackRow key={trackInfos.track.id}>
+                <TableCell><TrackLikeButton as={Image} src={heartImage} alt="like unfilled" /></TableCell>
                 <TableCell>{trackInfos.track.name}</TableCell>
                 <TableCell>{trackInfos.track.artists[0].name}</TableCell>
                 <TableCell>{trackInfos.track.album.name}</TableCell>
@@ -71,4 +71,8 @@ const TrackRow = styled.tr`
 
 const TableCell = styled.td`
   padding: .5rem 0;
+`
+
+const TrackLikeButton = styled.img`
+  cursor: pointer;
 `
