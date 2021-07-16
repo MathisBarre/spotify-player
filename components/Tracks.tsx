@@ -5,9 +5,10 @@ import { Itrack } from "../types/api"
 import dayjs from "dayjs"
 interface ItracksProps {
   tracks: Itrack[]
+  currentTrackId: string
 }
 
-export default function Tracks({ tracks }: ItracksProps) { 
+export default function Tracks({ tracks, currentTrackId }: ItracksProps) { 
   return (
     <TracksContainer>
       <TracksTable>
@@ -23,8 +24,8 @@ export default function Tracks({ tracks }: ItracksProps) {
         <tbody>
           { tracks.map((trackInfos: Itrack, index: number) => {
             return (
-              <TrackRow key={trackInfos.track.id}>
-                <TableCell><TrackLikeButton as={Image} src={heartImage} alt="like unfilled" /></TableCell>
+              <TrackRow playedTrack={trackInfos.track.id === currentTrackId} key={trackInfos.track.id} >
+                <LikeTableCell><TrackLikeButton as={Image} src={heartImage} alt="like unfilled" /></LikeTableCell>
                 <TableCell>{trackInfos.track.name}</TableCell>
                 <TableCell>{trackInfos.track.artists[0].name}</TableCell>
                 <TableCell>{trackInfos.track.album.name}</TableCell>
@@ -68,6 +69,7 @@ const TrackReleaseDate = styled.td`
 const TrackRow = styled.tr`
   padding: 1rem 0;
   border-bottom: 1px #1F1F1F solid;
+  background-color: ${props => props.playedTrack ? "#ffffff0d" : "transparent"};
   &:last-child {
     border-bottom: transparent
   }
@@ -75,6 +77,10 @@ const TrackRow = styled.tr`
 
 const TableCell = styled.td`
   padding: .5rem 0;
+`
+
+const LikeTableCell = styled.td`
+  padding: .5rem .5rem .5rem 1.5rem
 `
 
 const TrackLikeButton = styled.img`

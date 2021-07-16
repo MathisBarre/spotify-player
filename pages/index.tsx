@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { gql } from "@apollo/client"
 import styled from "@emotion/styled"
 import client from "../utils/apollo-client";
@@ -12,6 +13,9 @@ interface IhomeProps {
 }
 
 export default function Home({ playlist }: IhomeProps) {
+
+  const [currentTrackId, setCurrentTrackId] = useState(null)
+
   return (
     <Container>
       <PlaylistHeader
@@ -20,8 +24,8 @@ export default function Home({ playlist }: IhomeProps) {
         author={playlist.owner.display_name}
         nbOfTracks={playlist.tracks.length}
       />
-      <Tracks tracks={playlist.tracks} />
-      <AudioPlayer tracks={playlist.tracks} />
+      <Tracks tracks={playlist.tracks} currentTrackId={currentTrackId} />
+      <AudioPlayer  tracks={playlist.tracks} setCurrentTrackId={setCurrentTrackId} />
     </Container>
   )
 }

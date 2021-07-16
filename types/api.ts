@@ -11,7 +11,7 @@ enum ItrackType {
 }
 
 export interface ItrackDetail {
-  id: number
+  id: string
   album: Ialbum
   artists: Iartist[]
   name: string

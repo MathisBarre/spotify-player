@@ -5,15 +5,16 @@ import AudioControls from "../components/AudioControls"
 
 interface IaudioPlayerProps {
   tracks: Itrack[]
+  setCurrentTrackId: Function
 }
 
-export default function AudioPlayer ({ tracks }: IaudioPlayerProps) {
+export default function AudioPlayer ({ tracks, setCurrentTrackId }: IaudioPlayerProps) {
   const tracksDetails: ItrackDetail[] = tracks.map(track => track.track)
 
   const [trackIndex, setTrackIndex] = useState<number>(0)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
-  const { preview_url } = tracksDetails[trackIndex]
+  const { preview_url, id: trackId } = tracksDetails[trackIndex]
 
   const audioRef = useRef<any>(null) //! need better typing
   const intervalRef = useRef<any>() //! need better typing
@@ -42,9 +43,12 @@ export default function AudioPlayer ({ tracks }: IaudioPlayerProps) {
     if (preview_url === null) {
       toNextTrack()
     } else {
+      setCurrentTrackId(trackId)
+
       audioRef?.current?.pause()
 
       audioRef.current = new Audio(preview_url)
+      audioRef.current.play()
   
       if (isReady.current) {
         setIsPlaying(true)
