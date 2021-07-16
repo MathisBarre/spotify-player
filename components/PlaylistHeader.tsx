@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import Image from "next/image"
 import styled from "@emotion/styled"
 import playlistImage from "../public/images/playlist.png"
@@ -12,18 +11,7 @@ interface IplaylistHeaderProps {
 }
 
 export default function PlaylistHeader({ name, description, author, nbOfTracks } : IplaylistHeaderProps ) {
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null)
-  
-  useEffect(() => {
-    setAudio(new Audio("https://p.scdn.co/mp3-preview/646a6df5515d016d6342e4698dd1805bd3bb3b85?cid=b644138492164b009229f271bdc7b751"))
-  }, [])
-
-  function play() {
-    if (audio?.paused) { audio?.play(); }
-    else { audio?.pause() }
-  }
-
-  function getAuthorProfileUrl(authorName: string) {
+  function getAuthorProfileUrl(authorName: string): string {
     return `#/user/${authorName.replace(" ", "-").toLocaleLowerCase()}`
   }
 
@@ -40,7 +28,7 @@ export default function PlaylistHeader({ name, description, author, nbOfTracks }
           Created by <PlaylistAuthor href={getAuthorProfileUrl(author)}> {author} </PlaylistAuthor> • {nbOfTracks} songs
         </PlaylistInformations>
         <PlaylistActions>
-          <PlaylistPlayButton as="p" onClick={() => {play()}}>PLAY</PlaylistPlayButton>
+          <PlaylistPlayButton>PLAY</PlaylistPlayButton>
           <PlaylistLikeButton>
             <PlaylistLikeIcon as={Image} src={heartImage} />
           </PlaylistLikeButton>

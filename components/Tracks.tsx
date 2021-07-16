@@ -40,6 +40,7 @@ export default function Tracks({ tracks }: ItracksProps) {
 
 const TracksContainer = styled.div`
   padding: 1rem;
+  padding-bottom: 5rem;
 `
 
 const TracksTable = styled.table`
@@ -66,7 +67,10 @@ const TrackReleaseDate = styled.td`
 
 const TrackRow = styled.tr`
   padding: 1rem 0;
-  border-bottom: 1px #1F1F1F solid
+  border-bottom: 1px #1F1F1F solid;
+  &:last-child {
+    border-bottom: transparent
+  }
 `
 
 const TableCell = styled.td`

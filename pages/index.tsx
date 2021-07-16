@@ -3,6 +3,7 @@ import styled from "@emotion/styled"
 import client from "../utils/apollo-client";
 import PlaylistHeader from "../components/PlaylistHeader"
 import Tracks from "../components/Tracks"
+import AudioPlayer from "../components/AudioPlayer"
 import { Iplaylist } from "../types/api"
 import { GetStaticProps } from "next";
 
@@ -20,6 +21,7 @@ export default function Home({ playlist }: IhomeProps) {
         nbOfTracks={playlist.tracks.length}
       />
       <Tracks tracks={playlist.tracks} />
+      <AudioPlayer tracks={playlist.tracks} />
     </Container>
   )
 }
@@ -53,6 +55,7 @@ export const getStaticProps: GetStaticProps = async () => {
               name
               preview_url
               type
+              duration_ms
             }
           }
         }

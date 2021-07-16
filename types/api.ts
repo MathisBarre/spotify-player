@@ -10,7 +10,7 @@ enum ItrackType {
   track
 }
 
-interface ItrackDetail {
+export interface ItrackDetail {
   id: number
   album: Ialbum
   artists: Iartist[]
