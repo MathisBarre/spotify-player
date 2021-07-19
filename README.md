@@ -17,3 +17,10 @@ Même chose pour Apollo GraphQL. Au début j'étais perdu car Apollo n'est pas q
 Du coup, nouveau problème, l'api GraphQL donné est inutilisable pour des raisons de CORS. Je pense même que contrairement a ce qui a été annoncé, l'authentification est obligatoire pour accéder à une playlist dans tous les cas.
 
 Après avoir cherché longtemps un solution rapide pour remplacer l'api, j'ai décider de prendre le json normalement retourné par l'api. JSON que je vais utiliser pour créer un backend très simple qui aura pour mission de simuler un endpoint GraphQL (je dis simuler car il ne pourra retourner qu'une playliste). Par la suite j'hébergerai le backend sur Heroku
+
+## Users stories
+
+- [x] As a user, I want to display a playlist and its tracks
+- [x] As a user, I want to play/pause a track
+- [x] As a user, I want to skip a track (bonus : as a user i want to go to the previous track)
+- [ ] As a user, I want to add/remove a track to/from my Liked Songs
