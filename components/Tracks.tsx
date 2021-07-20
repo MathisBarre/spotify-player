@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import styled from "@emotion/styled"
 import Image from "next/image"
 import heartImage from "../public/images/heart.svg"
 import { Itrack } from "../types/api"
 import dayjs from "dayjs"
+
 interface ItracksProps {
   tracks: Itrack[]
   currentTrackId: string
@@ -11,9 +12,15 @@ interface ItracksProps {
 
 export default function Tracks({ tracks, currentTrackId }: ItracksProps) { 
   const [favoriteTracksIds, setFavoriteTracksIds] = useState<string[]>([])
+  const componentDidMount = useRef<boolean>(false)
 
   useEffect(() => {
-    console.log(favoriteTracksIds)
+    if (componentDidMount.current) {
+      localStorage.setItem("favoriteTracksId", JSON.stringify(favoriteTracksIds))
+    } else {
+      setFavoriteTracksIds(JSON.parse(localStorage.getItem("favoriteTracksId") || "[]"))
+      componentDidMount.current = true
+    }
   }, [favoriteTracksIds])
 
   function addOrRemoveAFavorite(trackIdToUpdate: string): void {
