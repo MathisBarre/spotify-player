@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react"
 import styled from "@emotion/styled"
 import Image from "next/image"
-import heartImage from "../public/images/heart.svg"
+import emptyHeartImage from "../public/images/emptyHeart.svg"
+import filledHeartImage from "../public/images/filledHeart.svg"
 import { Itrack } from "../types/api"
 import dayjs from "dayjs"
 
@@ -48,7 +49,27 @@ export default function Tracks({ tracks, currentTrackId }: ItracksProps) {
           { tracks.map((trackInfos: Itrack, index: number) => {
             return (
               <TrackRow playedTrack={trackInfos.track.id === currentTrackId} key={trackInfos.track.id} >
-                <LikeTableCell><TrackLikeButton as={Image} src={heartImage} alt="like unfilled" onClick={() => {addOrRemoveAFavorite(trackInfos.track.id)}} /></LikeTableCell>
+                <LikeTableCell>
+                  {
+                    ( favoriteTracksIds.includes(trackInfos.track.id) )
+                    ? <TrackLikeButton 
+                      as={Image} 
+                      src={filledHeartImage} 
+                      alt="like filled" 
+                      onClick={() => {addOrRemoveAFavorite(trackInfos.track.id)}}
+                      height="24"
+                      width="24"
+                    />
+                    : <TrackLikeButton 
+                      as={Image} 
+                      src={emptyHeartImage} 
+                      alt="like unfilled" 
+                      onClick={() => {addOrRemoveAFavorite(trackInfos.track.id)}}
+                      height="24"
+                      width="24"
+                    />
+                  }
+                </LikeTableCell>
                 <TableCell>{trackInfos.track.name}</TableCell>
                 <TableCell>{trackInfos.track.artists[0].name}</TableCell>
                 <TableCell>{trackInfos.track.album.name}</TableCell>
@@ -111,4 +132,6 @@ const LikeTableCell = styled.td`
 
 const TrackLikeButton = styled.img`
   cursor: pointer;
+  height: 1.5rem;
+  width: 1.5rem;
 `

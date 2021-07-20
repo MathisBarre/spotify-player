@@ -1,7 +1,7 @@
 import Image from "next/image"
 import styled from "@emotion/styled"
 import playlistImage from "../public/images/playlist.png"
-import heartImage from "../public/images/heart.svg"
+import heartImage from "../public/images/emptyHeart.svg"
 
 interface IplaylistHeaderProps {
   name: string,
