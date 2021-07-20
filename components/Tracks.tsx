@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react"
 import styled from "@emotion/styled"
 import Image from "next/image"
 import heartImage from "../public/images/heart.svg"
@@ -9,6 +10,21 @@ interface ItracksProps {
 }
 
 export default function Tracks({ tracks, currentTrackId }: ItracksProps) { 
+  const [favoriteTracksIds, setFavoriteTracksIds] = useState<string[]>([])
+
+  useEffect(() => {
+    console.log(favoriteTracksIds)
+  }, [favoriteTracksIds])
+
+  function addOrRemoveAFavorite(trackIdToUpdate: string): void {
+    if ( favoriteTracksIds.includes(trackIdToUpdate) ) {
+      const newFavoriteTracksIds = favoriteTracksIds.filter((trackId) => trackId !== trackIdToUpdate)
+      setFavoriteTracksIds(newFavoriteTracksIds)
+    } else {
+      setFavoriteTracksIds([...favoriteTracksIds, trackIdToUpdate])
+    }
+  }
+
   return (
     <TracksContainer>
       <TracksTable>
@@ -25,7 +41,7 @@ export default function Tracks({ tracks, currentTrackId }: ItracksProps) {
           { tracks.map((trackInfos: Itrack, index: number) => {
             return (
               <TrackRow playedTrack={trackInfos.track.id === currentTrackId} key={trackInfos.track.id} >
-                <LikeTableCell><TrackLikeButton as={Image} src={heartImage} alt="like unfilled" /></LikeTableCell>
+                <LikeTableCell><TrackLikeButton as={Image} src={heartImage} alt="like unfilled" onClick={() => {addOrRemoveAFavorite(trackInfos.track.id)}} /></LikeTableCell>
                 <TableCell>{trackInfos.track.name}</TableCell>
                 <TableCell>{trackInfos.track.artists[0].name}</TableCell>
                 <TableCell>{trackInfos.track.album.name}</TableCell>
@@ -59,6 +75,7 @@ const TableLabel = styled.th`
   letter-spacing: .1em;
   font-weight: 400;
   font-size: 0.875rem;
+  padding-bottom: .75rem;
 `
 
 const TrackReleaseDate = styled.td`
@@ -80,7 +97,9 @@ const TableCell = styled.td`
 `
 
 const LikeTableCell = styled.td`
-  padding: .5rem .5rem .5rem 1.5rem
+  padding: .5rem .5rem .5rem 1.5rem;
+  display: flex;
+  align-items: center;
 `
 
 const TrackLikeButton = styled.img`
