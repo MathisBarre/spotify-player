@@ -6,6 +6,7 @@ import playImage from "../public/images/play.svg"
 import pauseImage from "../public/images/pause.svg"
 import nextImage from "../public/images/next.svg"
 import previousImage from "../public/images/previous.svg"
+import { isPunctuatorTokenKind } from "graphql/language/lexer"
 
 interface IaudioPlayerProps {
   tracks: Itrack[]
@@ -16,12 +17,11 @@ export default function AudioPlayer ({ tracks, setCurrentTrackId }: IaudioPlayer
   const tracksDetails: ItrackDetail[] = tracks.map(track => track.track)
 
   const [trackIndex, setTrackIndex] = useState<number>(0)
-  const [isPlaying, setIsPlaying] = useState<boolean>(true)
+  const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
   const { preview_url, id: trackId } = tracksDetails[trackIndex]
 
   const audioRef = useRef<any>(null) //! need better typing
-  const intervalRef = useRef<any>() //! need better typing
   const isReady = useRef<boolean>(false)
 
   const toPrevTrack = () => {
@@ -52,10 +52,10 @@ export default function AudioPlayer ({ tracks, setCurrentTrackId }: IaudioPlayer
       audioRef?.current?.pause()
 
       audioRef.current = new Audio(preview_url)
-      audioRef.current.play()
-  
+      
       if (isReady.current) {
         setIsPlaying(true)
+        audioRef.current.play()
       } else {
         isReady.current = true
       }
@@ -66,7 +66,6 @@ export default function AudioPlayer ({ tracks, setCurrentTrackId }: IaudioPlayer
   useEffect(() => {
     return () => {
       audioRef?.current?.pause()
-      clearInterval(intervalRef.current)
     }
   }, [])
 
