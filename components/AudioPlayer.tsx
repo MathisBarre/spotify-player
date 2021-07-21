@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from "react"
 import styled from "@emotion/styled"
 import { Itrack, ItrackDetail } from "../types/api"
-import AudioControls from "../components/AudioControls"
+import Image from "next/image"
+import playImage from "../public/images/play.svg"
+import pauseImage from "../public/images/pause.svg"
+import nextImage from "../public/images/next.svg"
+import previousImage from "../public/images/previous.svg"
 
 interface IaudioPlayerProps {
   tracks: Itrack[]
@@ -12,7 +16,7 @@ export default function AudioPlayer ({ tracks, setCurrentTrackId }: IaudioPlayer
   const tracksDetails: ItrackDetail[] = tracks.map(track => track.track)
 
   const [trackIndex, setTrackIndex] = useState<number>(0)
-  const [isPlaying, setIsPlaying] = useState<boolean>(false)
+  const [isPlaying, setIsPlaying] = useState<boolean>(true)
 
   const { preview_url, id: trackId } = tracksDetails[trackIndex]
 
@@ -67,27 +71,57 @@ export default function AudioPlayer ({ tracks, setCurrentTrackId }: IaudioPlayer
   }, [])
 
   return (
-    <AudioPlayerContainer>
-      <AudioControls
-        isPlaying={isPlaying}
-        onPrevClick={toPrevTrack}
-        onNextClick={toNextTrack}
-        onPlayPauseClick={setIsPlaying}
-      />
-    </AudioPlayerContainer>
+    <>
+      <NextPrevButton onClick={toPrevTrack}>
+        <Image alt="previous" src={previousImage} />
+      </NextPrevButton>
+      <PlayButton onClick={() => { setIsPlaying(!isPlaying) }}>
+      {
+        isPlaying
+        ? <PlayPauseImage as={Image} src={pauseImage} height="48" width="48" alt="" />
+        : <PlayPauseImage as={Image} src={playImage} height="48" width="48" alt="" />
+      }
+      </PlayButton>
+      <NextPrevButton onClick={toNextTrack}>
+        <Image alt="next" src={nextImage} />
+      </NextPrevButton>
+    </>
   )
 }
 
-const AudioPlayerContainer = styled.section`
-  background-color: #181818;
-  height: 4rem;
-  width: 100%;
-  border-top: 1px solid #282828;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+
+const PreviousButton = styled.button`
+  margin-right: .5rem;
+  width: 6rem;
+  padding: 0.25rem 0;
+`
+
+const PlayButton = styled.button`
+  width: 3rem;
+  height: 3rem;
+  border-radius: 100rem;
+  border: none;
+  padding: 0.25rem 0;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  cursor: pointer;
+`
+
+const PlayPauseImage = styled.img`
+  height: 3rem;
+  width: 3rem;
+`
+
+const NextPrevButton = styled.button`
+  width: 2rem;
+  margin: 0rem .5rem;
+  padding: 0.25rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 `

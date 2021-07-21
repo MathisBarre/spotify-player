@@ -25,7 +25,9 @@ export default function Home({ playlist }: IhomeProps) {
         nbOfTracks={playlist.tracks.length}
       />
       <Tracks tracks={playlist.tracks} currentTrackId={currentTrackId} />
-      <AudioPlayer  tracks={playlist.tracks} setCurrentTrackId={setCurrentTrackId} />
+      <Controls>
+        <AudioPlayer  tracks={playlist.tracks} setCurrentTrackId={setCurrentTrackId} />
+      </Controls>
     </Container>
   )
 }
@@ -34,6 +36,20 @@ const Container = styled.main`
   min-height: 100vh;
   background-color: #111111;
   color: white;
+`
+
+const Controls = styled.footer`
+  background-color: #181818;
+  height: 4rem;
+  width: 100%;
+  border-top: 1px solid #282828;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 export const getStaticProps: GetStaticProps = async () => {
