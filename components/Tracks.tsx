@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react"
+import { useEffect, useRef, Dispatch, SetStateAction } from "react"
 import styled from "@emotion/styled"
 import Image from "next/image"
 import emptyHeartImage from "../public/images/emptyHeart.svg"
@@ -11,9 +11,10 @@ interface ItracksProps {
   currentTrackId: string
   favoriteTracksIds: string[]
   setFavoriteTracksIds: Dispatch<SetStateAction<string[]>>
+  setCurrentTrack: Dispatch<SetStateAction<number>>
 }
 
-export default function Tracks({ tracks, currentTrackId, favoriteTracksIds, setFavoriteTracksIds }: ItracksProps) { 
+export default function Tracks({ tracks, currentTrackId, favoriteTracksIds, setFavoriteTracksIds, setCurrentTrack }: ItracksProps) { 
   const componentDidMount = useRef<boolean>(false)
 
   useEffect(() => {
@@ -50,7 +51,7 @@ export default function Tracks({ tracks, currentTrackId, favoriteTracksIds, setF
           <tbody>
             { tracks.map((trackInfos: Itrack, index: number) => {
               return (
-                <TrackRow playedTrack={trackInfos.track.id === currentTrackId} key={trackInfos.track.id} >
+                <TrackRow onClick={() => {setCurrentTrack(index)}} playedTrack={trackInfos.track.id === currentTrackId} key={trackInfos.track.id} >
                   <LikeTableCell>
                     {
                       ( favoriteTracksIds.includes(trackInfos.track.id) )
@@ -58,7 +59,7 @@ export default function Tracks({ tracks, currentTrackId, favoriteTracksIds, setF
                         as={Image} 
                         src={filledHeartImage} 
                         alt="like filled" 
-                        onClick={() => {addOrRemoveAFavorite(trackInfos.track.id)}}
+                        onClick={(e) => { e.stopPropagation() ;addOrRemoveAFavorite(trackInfos.track.id)}}
                         height="24"
                         width="24"
                       />
@@ -120,8 +121,12 @@ const TrackRow = styled.tr`
   padding: 1rem 0;
   border-bottom: 1px #1F1F1F solid;
   background-color: ${props => props.playedTrack ? "#ffffff0d" : "transparent"};
+  cursor: pointer;
   &:last-child {
     border-bottom: transparent
+  }
+  &:hover {
+    background-color: #ffffff16;
   }
 `
 
