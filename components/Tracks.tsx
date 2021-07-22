@@ -36,50 +36,54 @@ export default function Tracks({ tracks, currentTrackId, favoriteTracksIds, setF
 
   return (
     <TracksContainer>
-      <TracksTable>
-        <thead>
-          <tr>
-            <TableLabel></TableLabel>
-            <TableLabel>Title</TableLabel>
-            <TableLabel>Artist</TableLabel>
-            <TableLabel>Album</TableLabel>
-            <TableLabel>Date added</TableLabel>
-          </tr>
-        </thead>
-        <tbody>
-          { tracks.map((trackInfos: Itrack, index: number) => {
-            return (
-              <TrackRow playedTrack={trackInfos.track.id === currentTrackId} key={trackInfos.track.id} >
-                <LikeTableCell>
-                  {
-                    ( favoriteTracksIds.includes(trackInfos.track.id) )
-                    ? <TrackLikeButton 
-                      as={Image} 
-                      src={filledHeartImage} 
-                      alt="like filled" 
-                      onClick={() => {addOrRemoveAFavorite(trackInfos.track.id)}}
-                      height="24"
-                      width="24"
-                    />
-                    : <TrackLikeButton 
-                      as={Image} 
-                      src={emptyHeartImage} 
-                      alt="like unfilled" 
-                      onClick={() => {addOrRemoveAFavorite(trackInfos.track.id)}}
-                      height="24"
-                      width="24"
-                    />
-                  }
-                </LikeTableCell>
-                <TableCell>{trackInfos.track.name}</TableCell>
-                <TableCell>{trackInfos.track.artists[0].name}</TableCell>
-                <TableCell>{trackInfos.track.album.name}</TableCell>
-                <TrackReleaseDate>{dayjs(trackInfos.added_at).format("YYYY-MM-DD")}</TrackReleaseDate>
-              </TrackRow>
-            )
-          }) }
-        </tbody>
-      </TracksTable>
+      { (tracks.length > 0) ?
+        <TracksTable>      
+          <thead>
+            <tr>
+              <TableLabel></TableLabel>
+              <TableLabel>Title</TableLabel>
+              <TableLabel>Artist</TableLabel>
+              <TableLabel>Album</TableLabel>
+              <TableLabel>Date added</TableLabel>
+            </tr>
+          </thead>
+          <tbody>
+            { tracks.map((trackInfos: Itrack, index: number) => {
+              return (
+                <TrackRow playedTrack={trackInfos.track.id === currentTrackId} key={trackInfos.track.id} >
+                  <LikeTableCell>
+                    {
+                      ( favoriteTracksIds.includes(trackInfos.track.id) )
+                      ? <TrackLikeButton 
+                        as={Image} 
+                        src={filledHeartImage} 
+                        alt="like filled" 
+                        onClick={() => {addOrRemoveAFavorite(trackInfos.track.id)}}
+                        height="24"
+                        width="24"
+                      />
+                      : <TrackLikeButton 
+                        as={Image} 
+                        src={emptyHeartImage} 
+                        alt="like unfilled" 
+                        onClick={() => {addOrRemoveAFavorite(trackInfos.track.id)}}
+                        height="24"
+                        width="24"
+                      />
+                    }
+                  </LikeTableCell>
+                  <TableCell>{trackInfos.track.name}</TableCell>
+                  <TableCell>{trackInfos.track.artists[0].name}</TableCell>
+                  <TableCell>{trackInfos.track.album.name}</TableCell>
+                  <TrackReleaseDate>{dayjs(trackInfos.added_at).format("YYYY-MM-DD")}</TrackReleaseDate>
+                </TrackRow>
+              )
+            })}
+          </tbody>
+        </TracksTable>
+        : <NoTrackText>Aucune piste disponible</NoTrackText>
+      }
+
     </TracksContainer>
   )
 }
@@ -135,4 +139,8 @@ const TrackLikeButton = styled.img`
   cursor: pointer;
   height: 1.5rem;
   width: 1.5rem;
+`
+
+const NoTrackText = styled.p`
+  text-align: center;
 `
