@@ -117,7 +117,11 @@ const TrackReleaseDate = styled.td`
   font-weight: 600;
 `
 
-const TrackRow = styled.tr`
+interface ItrackRowProps {
+  playedTrack: boolean
+}
+
+const TrackRow = styled("tr")<ItrackRowProps>`
   padding: 1rem 0;
   border-bottom: 1px #1F1F1F solid;
   background-color: ${props => props.playedTrack ? "#ffffff0d" : "transparent"};
