@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef, Dispatch, SetStateAction } from "react"
 import styled from "@emotion/styled"
 import { Itrack, ItrackDetail } from "../types/api"
 import Image from "next/image"
@@ -6,18 +6,18 @@ import playImage from "../public/images/play.svg"
 import pauseImage from "../public/images/pause.svg"
 import nextImage from "../public/images/next.svg"
 import previousImage from "../public/images/previous.svg"
-import { isPunctuatorTokenKind } from "graphql/language/lexer"
 
 interface IaudioPlayerProps {
   tracks: Itrack[]
   setCurrentTrackId: Function
+  isPlaying: boolean
+  setIsPlaying: Dispatch<SetStateAction<boolean>>
 }
 
-export default function AudioPlayer ({ tracks, setCurrentTrackId }: IaudioPlayerProps) {
+export default function AudioPlayer ({ tracks, setCurrentTrackId, isPlaying, setIsPlaying }: IaudioPlayerProps) {
   const tracksDetails: ItrackDetail[] = tracks.map(track => track.track)
 
   const [trackIndex, setTrackIndex] = useState<number>(0)
-  const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
   const { preview_url, id: trackId } = tracksDetails[trackIndex]
 
@@ -87,13 +87,6 @@ export default function AudioPlayer ({ tracks, setCurrentTrackId }: IaudioPlayer
     </>
   )
 }
-
-
-const PreviousButton = styled.button`
-  margin-right: .5rem;
-  width: 6rem;
-  padding: 0.25rem 0;
-`
 
 const PlayButton = styled.button`
   width: 3rem;

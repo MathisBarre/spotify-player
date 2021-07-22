@@ -18,9 +18,9 @@ export default function Home({ playlist }: IhomeProps) {
   const [displayedTracks, setDisplayedTracks] = useState<Itrack[]>(playlist.tracks)
   const [favoriteTracksIds, setFavoriteTracksIds] = useState<string[]>([])
   const [displayFavoriteTracks, setDisplayFavoriteTracks] = useState<boolean>(false)
+  const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
   const filteredTracks = displayedTracks.filter((track) => favoriteTracksIds.includes(track.track.id))
-  console.log(filteredTracks)
 
   return (
     <Container>
@@ -29,6 +29,8 @@ export default function Home({ playlist }: IhomeProps) {
         description={playlist.description}
         author={playlist.owner.display_name}
         nbOfTracks={playlist.tracks.length}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
       />
       <Tracks
         tracks={(displayFavoriteTracks) ? filteredTracks : displayedTracks}
@@ -37,7 +39,7 @@ export default function Home({ playlist }: IhomeProps) {
         setFavoriteTracksIds={setFavoriteTracksIds}
       />
       <Controls>
-        <AudioPlayer  tracks={displayedTracks} setCurrentTrackId={setCurrentTrackId} />
+        <AudioPlayer isPlaying={isPlaying} setIsPlaying={setIsPlaying}  tracks={displayedTracks} setCurrentTrackId={setCurrentTrackId}  />
         <FavoriteButton onClick={() => {setDisplayFavoriteTracks(!displayFavoriteTracks)}}>
           {(displayFavoriteTracks ? "Afficher toutes les pistes" : "Afficher les favoris")}
         </FavoriteButton>
