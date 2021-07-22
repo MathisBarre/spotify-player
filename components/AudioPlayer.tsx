@@ -18,6 +18,7 @@ export default function AudioPlayer ({ tracks, setCurrentTrackId, isPlaying, set
   const tracksDetails: ItrackDetail[] = tracks.map(track => track.track)
 
   const [trackIndex, setTrackIndex] = useState<number>(0)
+  const [lastAction, setLastAction] = useState<"PREV"|"NEXT">("NEXT")
 
   const { preview_url, id: trackId } = tracksDetails[trackIndex]
 
@@ -25,11 +26,13 @@ export default function AudioPlayer ({ tracks, setCurrentTrackId, isPlaying, set
   const isReady = useRef<boolean>(false)
 
   const toPrevTrack = () => {
+    setLastAction("PREV")
     if (trackIndex - 1 < 0) setTrackIndex(tracks.length - 1)
     else setTrackIndex(trackIndex - 1)
   }
 
   const toNextTrack = () => {
+    setLastAction("NEXT")
     if (trackIndex < tracks.length - 1) setTrackIndex(trackIndex + 1)
     else setTrackIndex(0)
   }
@@ -45,7 +48,8 @@ export default function AudioPlayer ({ tracks, setCurrentTrackId, isPlaying, set
 
   useEffect(() => {
     if (preview_url === null) {
-      toNextTrack()
+      if (lastAction === "NEXT") toNextTrack()
+      else toPrevTrack()
     } else {
       setCurrentTrackId(trackId)
 
