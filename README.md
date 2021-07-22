@@ -23,4 +23,4 @@ Après avoir cherché longtemps un solution rapide pour remplacer l'api, j'ai d�
 - [x] As a user, I want to display a playlist and its tracks
 - [x] As a user, I want to play/pause a track
 - [x] As a user, I want to skip a track (bonus : as a user i want to go to the previous track)
-- [ ] As a user, I want to add/remove a track to/from my Liked Songs
+- [x] As a user, I want to add/remove a track to/from my Liked Songs

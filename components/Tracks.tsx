@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react"
 import styled from "@emotion/styled"
 import Image from "next/image"
 import emptyHeartImage from "../public/images/emptyHeart.svg"
@@ -9,10 +9,11 @@ import dayjs from "dayjs"
 interface ItracksProps {
   tracks: Itrack[]
   currentTrackId: string
+  favoriteTracksIds: string[]
+  setFavoriteTracksIds: Dispatch<SetStateAction<string[]>>
 }
 
-export default function Tracks({ tracks, currentTrackId }: ItracksProps) { 
-  const [favoriteTracksIds, setFavoriteTracksIds] = useState<string[]>([])
+export default function Tracks({ tracks, currentTrackId, favoriteTracksIds, setFavoriteTracksIds }: ItracksProps) { 
   const componentDidMount = useRef<boolean>(false)
 
   useEffect(() => {

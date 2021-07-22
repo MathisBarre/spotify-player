@@ -5,7 +5,7 @@ import client from "../utils/apollo-client";
 import PlaylistHeader from "../components/PlaylistHeader"
 import Tracks from "../components/Tracks"
 import AudioPlayer from "../components/AudioPlayer"
-import { Iplaylist } from "../types/api"
+import { Iplaylist, Itrack } from "../types/api"
 import { GetStaticProps } from "next";
 
 interface IhomeProps {
@@ -14,7 +14,13 @@ interface IhomeProps {
 
 export default function Home({ playlist }: IhomeProps) {
 
-  const [currentTrackId, setCurrentTrackId] = useState(null)
+  const [currentTrackId, setCurrentTrackId] = useState<string>("")
+  const [displayedTracks, setDisplayedTracks] = useState<Itrack[]>(playlist.tracks)
+  const [favoriteTracksIds, setFavoriteTracksIds] = useState<string[]>([])
+  const [displayFavoriteTracks, setDisplayFavoriteTracks] = useState<boolean>(true)
+
+  const filteredTracks = displayedTracks.filter((track) => favoriteTracksIds.includes(track.track.id))
+  console.log(filteredTracks)
 
   return (
     <Container>
@@ -24,9 +30,17 @@ export default function Home({ playlist }: IhomeProps) {
         author={playlist.owner.display_name}
         nbOfTracks={playlist.tracks.length}
       />
-      <Tracks tracks={playlist.tracks} currentTrackId={currentTrackId} />
+      <Tracks
+        tracks={(displayFavoriteTracks) ? filteredTracks : displayedTracks}
+        currentTrackId={currentTrackId}
+        favoriteTracksIds={favoriteTracksIds}
+        setFavoriteTracksIds={setFavoriteTracksIds}
+      />
       <Controls>
-        <AudioPlayer  tracks={playlist.tracks} setCurrentTrackId={setCurrentTrackId} />
+        <AudioPlayer  tracks={displayedTracks} setCurrentTrackId={setCurrentTrackId} />
+        <FavoriteButton onClick={() => {setDisplayFavoriteTracks(!displayFavoriteTracks)}}>
+          {(displayFavoriteTracks ? "Afficher les favoris" : "Afficher toutes les pistes")}
+        </FavoriteButton>
       </Controls>
     </Container>
   )
@@ -50,6 +64,18 @@ const Controls = styled.footer`
   display: flex;
   align-items: center;
   justify-content: center;
+`
+
+const FavoriteButton = styled.button`
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 0.25rem .5rem;
+  border-radius: 100rem;
+  font-weight: bold;
+  position: absolute;
+  right: 4rem;
+  cursor: pointer;
 `
 
 export const getStaticProps: GetStaticProps = async () => {
