@@ -23,7 +23,7 @@ export default function AudioPlayer ({ tracks, setCurrentTrackId, isPlaying, set
 
   const { preview_url, id: trackId } = tracksDetails[trackIndex]
 
-  const audioRef = useRef<HTMLAudioElement>(null) //! need better typing
+  const audioRef = useRef<HTMLAudioElement | null>(null) //! need better typing
   const isReady = useRef<boolean>(false)
 
   const toPrevTrack = () => {
