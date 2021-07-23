@@ -24,7 +24,7 @@ $ yarn
 ```
 ### 4. Compléter les variables d'environnement
 
-Renommez le fichier `.env.example` en `.env.local`. Si vous utilisez le back-end de l'étape 1, aucune changement n'est nécessaire. 
+Renommez le fichier `.env.example` en `.env.local`. Si vous utilisez le back-end de l'étape 1, aucun changement n'est nécessaire. 
 
 ### 5. Lancer le serveur local
 
