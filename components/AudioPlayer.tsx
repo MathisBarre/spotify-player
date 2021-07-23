@@ -16,14 +16,21 @@ interface IaudioPlayerProps {
   setTrackIndex: Dispatch<SetStateAction<number>>
 }
 
-export default function AudioPlayer ({ tracks, setCurrentTrackId, isPlaying, setIsPlaying, setTrackIndex, trackIndex }: IaudioPlayerProps) {
+export default function AudioPlayer ({ 
+  tracks, 
+  setCurrentTrackId, 
+  isPlaying, 
+  setIsPlaying, 
+  setTrackIndex, 
+  trackIndex 
+}: IaudioPlayerProps) {
   const tracksDetails: ItrackDetail[] = tracks.map(track => track.track)
 
   const [lastAction, setLastAction] = useState<"PREV"|"NEXT">("NEXT")
 
   const { preview_url, id: trackId } = tracksDetails[trackIndex]
 
-  const audioRef = useRef<HTMLAudioElement | null>(null) //! need better typing
+  const audioRef = useRef<HTMLAudioElement | null>(null)
   const isReady = useRef<boolean>(false)
 
   const toPrevTrack = () => {

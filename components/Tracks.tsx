@@ -14,7 +14,13 @@ interface ItracksProps {
   setCurrentTrack: Dispatch<SetStateAction<number>>
 }
 
-export default function Tracks({ tracks, currentTrackId, favoriteTracksIds, setFavoriteTracksIds, setCurrentTrack }: ItracksProps) { 
+export default function Tracks({ 
+  tracks, 
+  currentTrackId, 
+  favoriteTracksIds, 
+  setFavoriteTracksIds, 
+  setCurrentTrack
+}: ItracksProps) { 
   const componentDidMount = useRef<boolean>(false)
 
   useEffect(() => {
