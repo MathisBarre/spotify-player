@@ -52,14 +52,20 @@ export default function Tracks({ tracks, currentTrackId, favoriteTracksIds, setF
             { tracks.map((trackInfos: Itrack, index: number) => {
               return (
                 <TrackRow onClick={() => {setCurrentTrack(index)}} playedTrack={trackInfos.track.id === currentTrackId} key={trackInfos.track.id} >
-                  <LikeTableCell>
+                  <LikeTableCell
+                    onClick={(e) => {
+                      console.log(e)
+                      e.stopPropagation();
+                      addOrRemoveAFavorite(trackInfos.track.id)}
+                    }
+                  >
                     {
                       ( favoriteTracksIds.includes(trackInfos.track.id) )
                       ? <TrackLikeButton 
                         as={Image} 
                         src={filledHeartImage} 
                         alt="like filled" 
-                        onClick={(e) => { e.stopPropagation() ;addOrRemoveAFavorite(trackInfos.track.id)}}
+
                         height="24"
                         width="24"
                       />
