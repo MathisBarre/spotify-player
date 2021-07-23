@@ -1,6 +1,32 @@
+# Spotify player
+
+Reproduction de l'interface et de la logique d'une playlist spotify en utilisant Next.js, GraphQL Apollo et TypeScript
+
+![preview](https://spotify-player.mathisbarre.com/images/preview.png)
+
 ## Lancer l'application
 
-Premièrement, lancez le serveur de développemetn
+### 1. Installer et lancer le back-end
+
+- Rendez-vous sur [github.com/MathisBarre/spotify-fake-api](https://github.com/MathisBarre/spotify-fake-api)
+- Suivez les instructions du README.md afin d'installer et lancer le serveur.
+
+### 2. Cloner locallement l'application web
+
+```bash
+$ git clone https://github.com/MathisBarre/spotify-player.git
+```
+
+### 3. Installez les dépendances avec Yarn
+
+```bash
+yarn
+```
+### 4. Compléter les variables d'environnement
+
+Renommez le fichier `.env.example` en `.env.local`. Si vous utilisez le back-end de l'étape 1, aucune changement n'est nécessaire. 
+
+### 5. Lancer le serveur local
 
 ```bash
 yarn dev
@@ -10,13 +36,9 @@ Ouvrez [http://localhost:3000](http://localhost:3000) avec votre navigateur pour
 
 ## Notes
 
-C'est la première fois que j'utilise emotion, le setup est relativement simple. L'exemple donné par next.js aide bien.
+L'api donnée ne marche pas pour des raisons de CORS. J'ai donc simulé la mienne avec fastify et apollo server en utilisant le même JSON qui aurait dû être retourné par l'api de base comme source de données.
 
-Même chose pour Apollo GraphQL. Au début j'étais perdu car Apollo n'est pas qu'un produit mais un set de produit. En explorant la documentation, j'ai vite compris que le produit que je devais utiliser était Apollo Client pour React. La mise en place cependant pris du temps car l'api graphql donné demandais obligatoirement une authentification ou autorisation, ma requête ne marchait donc jamais. Après avoir testé avec une API GraphQL simple, sans autorisation ni authentification, tout marchais bien, j'ai donc su que mon implémentation d'Apollo Client était bonne.
-
-Du coup, nouveau problème, l'api GraphQL donné est inutilisable pour des raisons de CORS. Je pense même que contrairement a ce qui a été annoncé, l'authentification est obligatoire pour accéder à une playlist dans tous les cas.
-
-Après avoir cherché longtemps un solution rapide pour remplacer l'api, j'ai décider de prendre le json normalement retourné par l'api. JSON que je vais utiliser pour créer un backend très simple qui aura pour mission de simuler un endpoint GraphQL (je dis simuler car il ne pourra retourner qu'une playliste). Par la suite j'hébergerai le backend sur Heroku
+Repository du back-end : [MathisBarre/spotify-fake-api](https://github.com/MathisBarre/spotify-fake-api)
 
 ## Users stories
 
@@ -24,3 +46,15 @@ Après avoir cherché longtemps un solution rapide pour remplacer l'api, j'ai d�
 - [x] As a user, I want to play/pause a track
 - [x] As a user, I want to skip a track (bonus : as a user i want to go to the previous track)
 - [x] As a user, I want to add/remove a track to/from my Liked Songs
+
+## Cas particuliers, limitations et souhaits
+
+Toutes les users stories ont été effectués et quelques fonctionnalités ont même été ajoutés (comme cliquer sur une piste pour la lire). Cependant, il reste quelques fonctionnalités que j'aurais voulu implémenter et cas particuliers que je n'ai pas eu le temps de traiter.
+
+Par exemple, la musique s'arrête et reprend qu'on utilise l'intégration windows (touche sur le clavier, bouton sur les écouteurs ou clique sur le player windows qui apprait au changement de volume) mais l'interface n'est pas synchronisé avec ces changements. Il est même arrivé que toutes les musiques précédement joués se jouent toute en même temps.
+
+Le responsive n'est pas non plus fait, j'ai refais le tableau sans l'élément `<table>` pour commencer un peu de responsive mais il reste tout à faire.
+
+Une piste illisible (corrompue / mauvais format) ne se joue pas et la suivante est joué, cependant l'utilisateur n'a pas forcément l'information. J'aimerais donc ajouter une notification lorsque ce saut est fait.
+
+A la fin d'une piste, la suivante ne se joue pas automatiquement.
