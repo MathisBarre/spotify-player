@@ -45,16 +45,13 @@ export default function Tracks({
     <TracksContainer>
       { (tracks.length > 0) ?
         <TracksTable>      
-          <thead>
-            <tr>
-              <TableLabel></TableLabel>
+            <TrackRowHead>
+              <TableLabel><HeadSpacer /></TableLabel>
               <TableLabel>Title</TableLabel>
               <TableLabel>Artist</TableLabel>
               <TableLabel>Album</TableLabel>
               <TableLabel>Date added</TableLabel>
-            </tr>
-          </thead>
-          <tbody>
+            </TrackRowHead>
             { tracks.map((trackInfos: Itrack, index: number) => {
               return (
                 <TrackRow onClick={() => {setCurrentTrack(index)}} playedTrack={trackInfos.track.id === currentTrackId} key={trackInfos.track.id} >
@@ -92,7 +89,6 @@ export default function Tracks({
                 </TrackRow>
               )
             })}
-          </tbody>
         </TracksTable>
         : <NoTrackText>Aucune piste disponible</NoTrackText>
       }
@@ -106,15 +102,26 @@ const TracksContainer = styled.div`
   padding-bottom: 5rem;
 `
 
-const TracksTable = styled.table`
+const TracksTable = styled.div`
   width: 100%;
   box-sizing: content-box;
   table-layout: auto;
   overflow-wrap: break-word;
   border-collapse: collapse;
+  display: flex;
+  flex-direction: column;
 `
 
-const TableLabel = styled.th`
+const TrackRowHead = styled.div`
+  display: grid;
+  grid-template-columns: auto 3fr 2fr 3fr 2fr;
+`
+
+const HeadSpacer = styled.div`
+  width: 4.6875rem
+`
+
+const TableLabel = styled.div`
   color: #A2A2A2;
   text-align: left;
   text-transform: uppercase;
@@ -122,9 +129,10 @@ const TableLabel = styled.th`
   font-weight: 400;
   font-size: 0.875rem;
   padding-bottom: .75rem;
+  display: flex;
 `
 
-const TrackReleaseDate = styled.td`
+const TrackReleaseDate = styled.div`
   color: #A2A2A2;
   font-weight: 600;
 `
@@ -133,11 +141,14 @@ interface ItrackRowProps {
   playedTrack: boolean
 }
 
-const TrackRow = styled("tr")<ItrackRowProps>`
+const TrackRow = styled("div")<ItrackRowProps>`
   padding: 1rem 0;
   border-bottom: 1px #1F1F1F solid;
   background-color: ${props => props.playedTrack ? "#ffffff0d" : "transparent"};
   cursor: pointer;
+  display: grid;
+  grid-template-columns: auto 3fr 2fr 3fr 2fr;
+  border-radius: 0.25rem;
   &:last-child {
     border-bottom: transparent
   }
@@ -146,12 +157,15 @@ const TrackRow = styled("tr")<ItrackRowProps>`
   }
 `
 
-const TableCell = styled.td`
-  padding: .5rem 0;
+const TableCell = styled.div`
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding-right: 2rem;
 `
 
-const LikeTableCell = styled.td`
-  padding: .5rem .5rem .5rem 1.5rem;
+const LikeTableCell = styled.div`
+  padding: 0rem 1.5rem;
   display: flex;
   align-items: center;
 `
