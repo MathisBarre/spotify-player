@@ -20,7 +20,7 @@ $ git clone https://github.com/MathisBarre/spotify-player.git
 ### 3. Installez les dépendances avec Yarn
 
 ```bash
-yarn
+$ yarn
 ```
 ### 4. Compléter les variables d'environnement
 
@@ -29,7 +29,7 @@ Renommez le fichier `.env.example` en `.env.local`. Si vous utilisez le back-end
 ### 5. Lancer le serveur local
 
 ```bash
-yarn dev
+$ yarn dev
 ```
 
 Ouvrez [http://localhost:3000](http://localhost:3000) avec votre navigateur pour observer le résultat.
