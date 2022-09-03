@@ -6,11 +6,6 @@ Reproduction de l'interface et de la logique d'une playlist spotify en utilisant
 
 ## Lancer l'application
 
-### 1. Installer et lancer le back-end
-
-- Rendez-vous sur [github.com/MathisBarre/spotify-fake-api](https://github.com/MathisBarre/spotify-fake-api)
-- Suivez les instructions du README.md afin d'installer et lancer le serveur.
-
 ### 2. Cloner locallement l'application web
 
 ```bash
@@ -24,7 +19,7 @@ $ yarn
 ```
 ### 4. Compléter les variables d'environnement
 
-Renommez le fichier `.env.example` en `.env.local`. Si vous utilisez le back-end de l'étape 1, aucun changement n'est nécessaire. 
+Renommez le fichier `.env.example` en `.env.local`. Si vous utilisez le mock de shotgun, aucun changement n'est nécessaire. 
 
 ### 5. Lancer le serveur local
 
@@ -33,12 +28,6 @@ $ yarn dev
 ```
 
 Ouvrez [http://localhost:3000](http://localhost:3000) avec votre navigateur pour observer le résultat.
-
-## Notes
-
-L'api donnée ne marche pas pour des raisons de CORS. J'ai donc simulé la mienne avec fastify et apollo server en utilisant le même JSON qui aurait dû être retourné par l'api de base comme source de données.
-
-Repository du back-end : [MathisBarre/spotify-fake-api](https://github.com/MathisBarre/spotify-fake-api)
 
 ## Users stories
 

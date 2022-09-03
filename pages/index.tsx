@@ -27,8 +27,6 @@ export default function Home({ playlist }: IhomeProps) {
     <Container>
       <PlaylistHeader
         name={playlist.name}
-        description={playlist.description}
-        author={playlist.owner.display_name}
         nbOfTracks={playlist.tracks.length}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
@@ -93,25 +91,21 @@ export const getStaticProps: GetStaticProps = async () => {
   const { data } = await client.query({
     query: gql`
       query getPlaylist {
-        playlists {
-          description
+        playlist {
           name
-          owner {
-            display_name
+          images {
+            height
+            width
+            url
           }
           tracks {
             added_at
             track {
               id
-              album {
-                name
-              }
-              artists {
-                name
-              }
               name
+              album {name},
+              artists {name}
               preview_url
-              type
               duration_ms
             }
           }
@@ -122,7 +116,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      playlist: data.playlists[0]
+      playlist: data.playlist
     },
  };
 }

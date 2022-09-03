@@ -2,18 +2,15 @@ import { Dispatch, SetStateAction } from "react"
 import Image from "next/image"
 import styled from "@emotion/styled"
 import playlistImage from "../public/images/playlist.png"
-import heartImage from "../public/images/emptyHeart.svg"
 
 interface IplaylistHeaderProps {
   name: string
-  description: string
-  author: string
   nbOfTracks: number
   isPlaying: boolean
   setIsPlaying: Dispatch<SetStateAction<boolean>>
 }
 
-export default function PlaylistHeader({ name, description, author, nbOfTracks, isPlaying, setIsPlaying } : IplaylistHeaderProps ) {
+export default function PlaylistHeader({ name, nbOfTracks, isPlaying, setIsPlaying } : IplaylistHeaderProps ) {
   function getAuthorProfileUrl(authorName: string): string {
     return `#/user/${authorName.replace(" ", "-").toLocaleLowerCase()}`
   }
@@ -30,10 +27,6 @@ export default function PlaylistHeader({ name, description, author, nbOfTracks, 
           <PlaylistTag>PLAYLIST</PlaylistTag><br />
           <PlaylistTitle>{name}</PlaylistTitle>
         </h1>
-        <PlaylistDescription>{description}</PlaylistDescription>
-        <PlaylistInformations>
-          Created by <PlaylistAuthor href={getAuthorProfileUrl(author)}> {author} </PlaylistAuthor> • {nbOfTracks} songs
-        </PlaylistInformations>
         <PlaylistActions>
           <PlaylistPlayButton onClick={playOrPausePlaylist}>{(isPlaying) ? "PAUSE" : "PLAY"}</PlaylistPlayButton>
         </PlaylistActions>
