@@ -1,4 +1,7 @@
 {
-  "extends": ["next", "next/core-web-vitals"],
-  "plugins": ["@emotion"]
+  "extends": ["next", "next/core-web-vitals", "plugin:prettier/recommended"],
+  "plugins": ["@emotion"],
+  "rules": {
+    "no-unused-vars": "warn"
+  }
 }
