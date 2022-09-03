@@ -4,16 +4,16 @@ import client from "../utils/apollo-client";
 import PlaylistHeader from "../components/PlaylistHeader";
 import Tracks from "../components/Tracks";
 import AudioPlayer from "../components/AudioPlayer";
-import { Iplaylist, Itrack } from "../types/api";
+import { ApiResponse, Playlist, Track } from "../types/api";
 import { GetServerSideProps } from "next";
 
 interface IhomeProps {
-  playlist: Iplaylist;
+  playlist: Playlist;
 }
 
 export default function Home({ playlist }: IhomeProps) {
   const [currentTrackId, setCurrentTrackId] = useState<string>("");
-  const [displayedTracks] = useState<Itrack[]>(playlist.tracks);
+  const [displayedTracks] = useState<Track[]>(playlist.tracks);
   const [favoriteTracksIds, setFavoriteTracksIds] = useState<string[]>([]);
   const [displayFavoriteTracks, setDisplayFavoriteTracks] =
     useState<boolean>(false);
@@ -30,6 +30,7 @@ export default function Home({ playlist }: IhomeProps) {
         name={playlist.name}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
+        playlistImageUrl={playlist.images[0].url}
       />
       <Tracks
         tracks={displayFavoriteTracks ? filteredTracks : displayedTracks}
@@ -63,7 +64,7 @@ export default function Home({ playlist }: IhomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await client.query({
+  const { data } = await client.query<ApiResponse>({
     query: gql`
       query getPlaylist {
         playlist {

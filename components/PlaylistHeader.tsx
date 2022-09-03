@@ -1,17 +1,17 @@
 import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
-import playlistImage from "../public/images/playlist.png";
-
 interface IplaylistHeaderProps {
   name: string;
   isPlaying: boolean;
   setIsPlaying: Dispatch<SetStateAction<boolean>>;
+  playlistImageUrl: string;
 }
 
 export default function PlaylistHeader({
   name,
   isPlaying,
   setIsPlaying,
+  playlistImageUrl,
 }: IplaylistHeaderProps) {
   function playOrPausePlaylist() {
     setIsPlaying(!isPlaying);
@@ -19,8 +19,14 @@ export default function PlaylistHeader({
 
   return (
     <header className="w-full bg-gradient-to-b from-spotifyGray-200 to-spotifyGray-600 p-4 flex">
-      <Image alt="" src={playlistImage} />
-      <div className="flex justify-center flex-col px-8">
+      <Image
+        alt=""
+        src={playlistImageUrl}
+        layout="fixed"
+        height="192"
+        width="192"
+      />
+      <div className="flex justify-center flex-col px-8 h-">
         <h1>
           <span className="tracking-widest text-spotifyGray-100">PLAYLIST</span>
           <br />
