@@ -6,7 +6,7 @@ import PlaylistHeader from "../components/PlaylistHeader";
 import Tracks from "../components/Tracks";
 import AudioPlayer from "../components/AudioPlayer";
 import { Iplaylist, Itrack } from "../types/api";
-import { GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 
 interface IhomeProps {
   playlist: Iplaylist;
@@ -94,7 +94,7 @@ const FavoriteButton = styled.button`
   cursor: pointer;
 `;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const { data } = await client.query({
     query: gql`
       query getPlaylist {
