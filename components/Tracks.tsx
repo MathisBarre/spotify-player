@@ -2,12 +2,12 @@ import { useEffect, useRef, Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import emptyHeartImage from "../public/images/emptyHeart.svg";
 import filledHeartImage from "../public/images/filledHeart.svg";
-import { Itrack } from "../types/api";
+import { Track } from "../types/api";
 import dayjs from "dayjs";
 import { classNames } from "../utils/styles.utils";
 
 interface ItracksProps {
-  tracks: Itrack[];
+  tracks: Track[];
   currentTrackId: string;
   favoriteTracksIds: string[];
   setFavoriteTracksIds: Dispatch<SetStateAction<string[]>>;
@@ -37,7 +37,7 @@ export default function Tracks({
     }
   }, [favoriteTracksIds, setFavoriteTracksIds]);
 
-  function addOrRemoveAFavorite(trackIdToUpdate: string): void {
+  const addOrRemoveAFavorite = (trackIdToUpdate: string): void => {
     if (favoriteTracksIds.includes(trackIdToUpdate)) {
       const newFavoriteTracksIds = favoriteTracksIds.filter(
         (trackId) => trackId !== trackIdToUpdate
@@ -46,7 +46,7 @@ export default function Tracks({
     } else {
       setFavoriteTracksIds([...favoriteTracksIds, trackIdToUpdate]);
     }
-  }
+  };
 
   return (
     <div className="p-4 pb-20">
@@ -61,7 +61,7 @@ export default function Tracks({
             <TableLabel>Album</TableLabel>
             <TableLabel>Date added</TableLabel>
           </div>
-          {tracks.map((trackInfos: Itrack, index: number) => {
+          {tracks.map((trackInfos: Track, index: number) => {
             return (
               <div
                 className={classNames(
