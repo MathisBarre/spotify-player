@@ -38,7 +38,7 @@ export default function Home({ playlist }: IhomeProps) {
         setFavoriteTracksIds={setFavoriteTracksIds}
         setCurrentTrack={setTrackIndex}
       />
-      <footer className="bg-[#181818] h-16 w-full border-t-1 border-[#282828] fixed left-0 bottom-0 flex items-center justify-center">
+      <footer className="bg-[#181818] h-16 w-full border-t border-[#282828] fixed left-0 bottom-0 flex items-center justify-center">
         <AudioPlayer
           isPlaying={isPlaying}
           setIsPlaying={setIsPlaying}
