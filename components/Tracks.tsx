@@ -30,7 +30,7 @@ export default function Tracks({
       setFavoriteTracksIds(JSON.parse(localStorage.getItem("favoriteTracksId") || "[]"))
       componentDidMount.current = true
     }
-  }, [favoriteTracksIds])
+  }, [favoriteTracksIds, setFavoriteTracksIds])
 
   function addOrRemoveAFavorite(trackIdToUpdate: string): void {
     if ( favoriteTracksIds.includes(trackIdToUpdate) ) {
