@@ -14,9 +14,7 @@ interface IhomeProps {
 
 export default function Home({ playlist }: IhomeProps) {
   const [currentTrackId, setCurrentTrackId] = useState<string>("");
-  const [displayedTracks, setDisplayedTracks] = useState<Itrack[]>(
-    playlist.tracks
-  );
+  const [displayedTracks] = useState<Itrack[]>(playlist.tracks);
   const [favoriteTracksIds, setFavoriteTracksIds] = useState<string[]>([]);
   const [displayFavoriteTracks, setDisplayFavoriteTracks] =
     useState<boolean>(false);
@@ -31,7 +29,6 @@ export default function Home({ playlist }: IhomeProps) {
     <Container>
       <PlaylistHeader
         name={playlist.name}
-        nbOfTracks={playlist.tracks.length}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
       />

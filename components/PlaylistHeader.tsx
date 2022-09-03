@@ -5,21 +5,15 @@ import playlistImage from "../public/images/playlist.png";
 
 interface IplaylistHeaderProps {
   name: string;
-  nbOfTracks: number;
   isPlaying: boolean;
   setIsPlaying: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function PlaylistHeader({
   name,
-  nbOfTracks,
   isPlaying,
   setIsPlaying,
 }: IplaylistHeaderProps) {
-  function getAuthorProfileUrl(authorName: string): string {
-    return `#/user/${authorName.replace(" ", "-").toLocaleLowerCase()}`;
-  }
-
   function playOrPausePlaylist() {
     setIsPlaying(!isPlaying);
   }
@@ -69,21 +63,6 @@ const PlaylistTitle = styled.span`
   line-height: 1;
 `;
 
-const PlaylistDescription = styled.p`
-  color: #a2a2a2;
-  margin: 0.75rem 0;
-  font-weight: 600;
-`;
-
-const PlaylistInformations = styled.p`
-  color: #a2a2a2;
-  font-weight: 600;
-`;
-
-const PlaylistAuthor = styled.a`
-  color: white;
-`;
-
 const PlaylistActions = styled.div`
   margin-top: 1.5rem;
   display: flex;
@@ -98,19 +77,4 @@ const PlaylistPlayButton = styled.button`
   font-weight: 600;
   letter-spacing: 0.1em;
   cursor: pointer;
-`;
-
-const PlaylistLikeButton = styled.button`
-  border: 2px solid #cbcbcb;
-  background: transparent;
-  border-radius: 100rem;
-  height: 2rem;
-  width: 2rem;
-  margin-left: 0.5rem;
-  cursor: pointer;
-`;
-
-const PlaylistLikeIcon = styled.img`
-  height: 1.5rem;
-  width: 1.5rem;
 `;
