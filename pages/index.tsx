@@ -7,11 +7,11 @@ import AudioPlayer from "../components/AudioPlayer";
 import { ApiResponse, Playlist, Track } from "../types/api";
 import { GetServerSideProps } from "next";
 
-interface IhomeProps {
+interface HomeProps {
   playlist: Playlist;
 }
 
-export default function Home({ playlist }: IhomeProps) {
+export default function Home({ playlist }: HomeProps) {
   const [currentTrackId, setCurrentTrackId] = useState<string>("");
   const [displayedTracks] = useState<Track[]>(playlist.tracks);
   const [favoriteTracksIds, setFavoriteTracksIds] = useState<string[]>([]);
@@ -94,9 +94,18 @@ export const getServerSideProps: GetServerSideProps = async () => {
     `,
   });
 
+  const sanitizedTracks = data.playlist.tracks.filter(
+    (track) => track.track.preview_url !== null
+  );
+
+  console.log(sanitizedTracks);
+
   return {
     props: {
-      playlist: data.playlist,
+      playlist: {
+        ...data.playlist,
+        tracks: sanitizedTracks,
+      },
     },
   };
 };
