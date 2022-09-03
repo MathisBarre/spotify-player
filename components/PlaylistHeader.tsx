@@ -19,6 +19,7 @@ export default function PlaylistHeader({
 
   return (
     <header className="w-full bg-gradient-to-b from-spotifyGray-200 to-spotifyGray-600 p-4 flex">
+      {/** no alt given by the api. Since the image do not contain crucial information(s), we can let an empty value **/}
       <Image
         alt=""
         src={playlistImageUrl}
