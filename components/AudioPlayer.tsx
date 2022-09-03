@@ -5,14 +5,14 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react";
-import { Track, TrackDetail } from "../types/api";
+import { Track, TrackDetails } from "../types/api";
 import Image from "next/image";
 import playImage from "../public/images/play.svg";
 import pauseImage from "../public/images/pause.svg";
 import nextImage from "../public/images/next.svg";
 import previousImage from "../public/images/previous.svg";
 
-interface IaudioPlayerProps {
+interface AudioPlayerProps {
   tracks: Track[];
   setCurrentTrackId: Function;
   isPlaying: boolean;
@@ -28,8 +28,8 @@ export default function AudioPlayer({
   setIsPlaying,
   setTrackIndex,
   trackIndex,
-}: IaudioPlayerProps) {
-  const tracksDetails: TrackDetail[] = tracks.map((track) => track.track);
+}: AudioPlayerProps) {
+  const tracksDetails: TrackDetails[] = tracks.map((track) => track.track);
 
   const [lastAction, setLastAction] = useState<"PREV" | "NEXT">("NEXT");
 

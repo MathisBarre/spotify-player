@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
-interface IplaylistHeaderProps {
+interface PlaylistHeaderProps {
   name: string;
   isPlaying: boolean;
   setIsPlaying: Dispatch<SetStateAction<boolean>>;
@@ -12,7 +12,7 @@ export default function PlaylistHeader({
   isPlaying,
   setIsPlaying,
   playlistImageUrl,
-}: IplaylistHeaderProps) {
+}: PlaylistHeaderProps) {
   function playOrPausePlaylist() {
     setIsPlaying(!isPlaying);
   }

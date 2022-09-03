@@ -6,7 +6,7 @@ import { Track } from "../types/api";
 import dayjs from "dayjs";
 import { classNames } from "../utils/styles.utils";
 
-interface ItracksProps {
+interface TracksProps {
   tracks: Track[];
   currentTrackId: string;
   favoriteTracksIds: string[];
@@ -20,7 +20,7 @@ export default function Tracks({
   favoriteTracksIds,
   setFavoriteTracksIds,
   setCurrentTrack,
-}: ItracksProps) {
+}: TracksProps) {
   const componentDidMount = useRef<boolean>(false);
 
   useEffect(() => {

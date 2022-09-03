@@ -12,7 +12,7 @@ export interface Artist {
   name: string;
 }
 
-export interface TrackDetail {
+export interface TrackDetails {
   id: string;
   name: string;
   album: Album;
@@ -23,7 +23,7 @@ export interface TrackDetail {
 
 export interface Track {
   added_at: Date;
-  track: TrackDetail;
+  track: TrackDetails;
 }
 
 export interface Playlist {
