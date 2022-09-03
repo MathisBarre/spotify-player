@@ -18,17 +18,17 @@ export default function PlaylistHeader({
   }
 
   return (
-    <header className="w-full bg-gradient-to-b from-[#373737] to-[#111111] p-4 flex">
+    <header className="w-full bg-gradient-to-b from-spotifyGray-200 to-spotifyGray-600 p-4 flex">
       <Image alt="" src={playlistImage} />
       <div className="flex justify-center flex-col px-8">
         <h1>
-          <span className="tracking-widest text-[#a2a2a2]">PLAYLIST</span>
+          <span className="tracking-widest text-spotifyGray-100">PLAYLIST</span>
           <br />
           <span className="text-6xl font-black leading-none">{name}</span>
         </h1>
         <div className="mt-6 flex">
           <button
-            className="bg-[#1aba53] border-none py-2 px-10 rounded-full font-semibold tracking-widest cursor-pointer"
+            className="bg-spotifyPrimary border-none py-2 px-10 rounded-full font-semibold tracking-widest cursor-pointer"
             onClick={playOrPausePlaylist}
           >
             {isPlaying ? "PAUSE" : "PLAY"}

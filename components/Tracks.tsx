@@ -65,7 +65,7 @@ export default function Tracks({
             return (
               <div
                 className={classNames(
-                  `py-4 border-b border-b-[#1f1f1f] cursor-pointer grid grid-cols-[auto_3fr_2fr_3fr_2fr] rounded-md hover:bg-[#ffffff16] last:border-b-[transparent]`,
+                  `py-4 border-b border-b-spotifyGray-400 cursor-pointer grid grid-cols-[auto_3fr_2fr_3fr_2fr] rounded-md hover:bg-[#ffffff16] last:border-b-[transparent]`,
                   trackInfos.track.id === currentTrackId
                     ? "bg-[#ffffff0d]"
                     : "bg-transparent"
@@ -107,7 +107,7 @@ export default function Tracks({
                 <TableCell>{trackInfos.track.name}</TableCell>
                 <TableCell>{trackInfos.track.artists[0].name}</TableCell>
                 <TableCell>{trackInfos.track.album.name}</TableCell>
-                <div className="color-[#a2a2a2] font-semibold">
+                <div className="color-spotifyGray-100 font-semibold">
                   {dayjs(trackInfos.added_at).format("YYYY-MM-DD")}
                 </div>
               </div>
@@ -123,7 +123,7 @@ export default function Tracks({
 
 const TableLabel: React.FC = ({ children }) => {
   return (
-    <div className="text-[#a2a2a2] text-left uppercase tracking-widest font-normal text-sm pb-3 flex">
+    <div className="text-spotifyGray-100 text-left uppercase tracking-widest font-normal text-sm pb-3 flex">
       {children}
     </div>
   );
