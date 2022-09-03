@@ -6,7 +6,7 @@ import PlaylistHeader from "../components/PlaylistHeader";
 import Tracks from "../components/Tracks";
 import AudioPlayer from "../components/AudioPlayer";
 import { Iplaylist, Itrack } from "../types/api";
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 
 interface IhomeProps {
   playlist: Iplaylist;
