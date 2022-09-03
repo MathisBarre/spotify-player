@@ -56,7 +56,10 @@ export default function Home({ playlist }: HomeProps) {
         <button
           className="bg-transparent border-2 border-white text-white px-2 py-1 rounded-full absolute right-16 cursor-pointer text-xs font-bold"
           onClick={() => {
-            setDisplayFavoriteTracks(!displayFavoriteTracks);
+            setDisplayFavoriteTracks(
+              (currentDisplayFavoriteTracksValue) =>
+                !currentDisplayFavoriteTracksValue
+            );
           }}
         >
           {displayFavoriteTracks

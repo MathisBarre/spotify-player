@@ -97,7 +97,7 @@ export default function AudioPlayer({
       <button
         className="w-12 h-12 rounded-full border-none px-0 py-1 flex justify-center items-center bg-transparent cursor-pointer"
         onClick={() => {
-          setIsPlaying(!isPlaying);
+          setIsPlaying((currentIsPlayingValue) => !currentIsPlayingValue);
         }}
       >
         {isPlaying ? (

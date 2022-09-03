@@ -14,7 +14,7 @@ export default function PlaylistHeader({
   playlistImageUrl,
 }: PlaylistHeaderProps) {
   function playOrPausePlaylist() {
-    setIsPlaying(!isPlaying);
+    setIsPlaying((currentIsPlayingValue) => !currentIsPlayingValue);
   }
 
   return (
