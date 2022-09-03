@@ -1,4 +1,4 @@
-import { useEffect, useRef, Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import emptyHeartImage from "../public/images/emptyHeart.svg";
 import filledHeartImage from "../public/images/filledHeart.svg";
@@ -21,23 +21,7 @@ export default function Tracks({
   setFavoriteTracksIds,
   setCurrentTrack,
 }: TracksProps) {
-  const componentDidMount = useRef<boolean>(false);
-
-  useEffect(() => {
-    if (componentDidMount.current) {
-      localStorage.setItem(
-        "favoriteTracksId",
-        JSON.stringify(favoriteTracksIds)
-      );
-    } else {
-      setFavoriteTracksIds(
-        JSON.parse(localStorage.getItem("favoriteTracksId") || "[]")
-      );
-      componentDidMount.current = true;
-    }
-  }, [favoriteTracksIds, setFavoriteTracksIds]);
-
-  const addOrRemoveAFavorite = (trackIdToUpdate: string): void => {
+  const toggleFavorite = (trackIdToUpdate: string): void => {
     if (favoriteTracksIds.includes(trackIdToUpdate)) {
       const newFavoriteTracksIds = favoriteTracksIds.filter(
         (trackId) => trackId !== trackIdToUpdate
@@ -80,7 +64,7 @@ export default function Tracks({
                   onClick={(e) => {
                     console.log(e);
                     e.stopPropagation();
-                    addOrRemoveAFavorite(trackInfos.track.id);
+                    toggleFavorite(trackInfos.track.id);
                   }}
                 >
                   {favoriteTracksIds.includes(trackInfos.track.id) ? (
@@ -97,7 +81,7 @@ export default function Tracks({
                       src={emptyHeartImage}
                       alt="like unfilled"
                       onClick={() => {
-                        addOrRemoveAFavorite(trackInfos.track.id);
+                        toggleFavorite(trackInfos.track.id);
                       }}
                       height="24"
                       width="24"

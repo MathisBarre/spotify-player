@@ -6,6 +6,7 @@ import Tracks from "../components/Tracks";
 import AudioPlayer from "../components/AudioPlayer";
 import { ApiResponse, Playlist, Track } from "../types/api";
 import { GetServerSideProps } from "next";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface HomeProps {
   playlist: Playlist;
@@ -14,7 +15,11 @@ interface HomeProps {
 export default function Home({ playlist }: HomeProps) {
   const [currentTrackId, setCurrentTrackId] = useState<string>("");
   const [displayedTracks] = useState<Track[]>(playlist.tracks);
-  const [favoriteTracksIds, setFavoriteTracksIds] = useState<string[]>([]);
+  const [favoriteTracksIds, setFavoriteTracksIds] = useLocalStorage<string[]>(
+    "favoriteTracksId",
+    []
+  );
+
   const [displayFavoriteTracks, setDisplayFavoriteTracks] =
     useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -97,8 +102,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const sanitizedTracks = data.playlist.tracks.filter(
     (track) => track.track.preview_url !== null
   );
-
-  console.log(sanitizedTracks);
 
   return {
     props: {
