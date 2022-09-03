@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { gql } from "@apollo/client";
-import styled from "@emotion/styled";
 import client from "../utils/apollo-client";
 import PlaylistHeader from "../components/PlaylistHeader";
 import Tracks from "../components/Tracks";
@@ -26,7 +25,7 @@ export default function Home({ playlist }: IhomeProps) {
   );
 
   return (
-    <Container>
+    <main className="min-h-screen bg-[#111111] text-white">
       <PlaylistHeader
         name={playlist.name}
         isPlaying={isPlaying}
@@ -39,7 +38,7 @@ export default function Home({ playlist }: IhomeProps) {
         setFavoriteTracksIds={setFavoriteTracksIds}
         setCurrentTrack={setTrackIndex}
       />
-      <Controls>
+      <footer className="bg-[#181818] h-16 w-full border-t border-[#282828] fixed left-0 bottom-0 flex items-center justify-center">
         <AudioPlayer
           isPlaying={isPlaying}
           setIsPlaying={setIsPlaying}
@@ -48,7 +47,8 @@ export default function Home({ playlist }: IhomeProps) {
           trackIndex={trackIndex}
           setTrackIndex={setTrackIndex}
         />
-        <FavoriteButton
+        <button
+          className="bg-transparent border-2 border-white text-white px-2 py-1 rounded-full absolute right-16 cursor-pointer text-xs font-bold"
           onClick={() => {
             setDisplayFavoriteTracks(!displayFavoriteTracks);
           }}
@@ -56,43 +56,11 @@ export default function Home({ playlist }: IhomeProps) {
           {displayFavoriteTracks
             ? "Afficher toutes les pistes"
             : "Afficher les favoris"}
-        </FavoriteButton>
-      </Controls>
-    </Container>
+        </button>
+      </footer>
+    </main>
   );
 }
-
-const Container = styled.main`
-  min-height: 100vh;
-  background-color: #111111;
-  color: white;
-`;
-
-const Controls = styled.footer`
-  background-color: #181818;
-  height: 4rem;
-  width: 100%;
-  border-top: 1px solid #282828;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const FavoriteButton = styled.button`
-  background-color: transparent;
-  border: 2px solid white;
-  color: white;
-  padding: 0.25rem 0.5rem;
-  border-radius: 100rem;
-  font-weight: bold;
-  position: absolute;
-  right: 4rem;
-  cursor: pointer;
-`;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const { data } = await client.query({

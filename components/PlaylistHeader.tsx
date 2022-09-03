@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
-import styled from "@emotion/styled";
 import playlistImage from "../public/images/playlist.png";
 
 interface IplaylistHeaderProps {
@@ -19,62 +18,23 @@ export default function PlaylistHeader({
   }
 
   return (
-    <PlaylistHeaderContainer>
+    <header className="w-full bg-gradient-to-b from-[#373737] to-[#111111] p-4 flex">
       <Image alt="" src={playlistImage} />
-      <PlaylistDetails>
+      <div className="flex justify-center flex-col px-8">
         <h1>
-          <PlaylistTag>PLAYLIST</PlaylistTag>
+          <span className="tracking-widest text-[#a2a2a2]">PLAYLIST</span>
           <br />
-          <PlaylistTitle>{name}</PlaylistTitle>
+          <span className="text-6xl font-black leading-none">{name}</span>
         </h1>
-        <PlaylistActions>
-          <PlaylistPlayButton onClick={playOrPausePlaylist}>
+        <div className="mt-6 flex">
+          <button
+            className="bg-[#1aba53] border-none py-2 px-10 rounded-full font-semibold tracking-widest cursor-pointer"
+            onClick={playOrPausePlaylist}
+          >
             {isPlaying ? "PAUSE" : "PLAY"}
-          </PlaylistPlayButton>
-        </PlaylistActions>
-      </PlaylistDetails>
-    </PlaylistHeaderContainer>
+          </button>
+        </div>
+      </div>
+    </header>
   );
 }
-
-const PlaylistHeaderContainer = styled.header`
-  width: 100%;
-  background: linear-gradient(to bottom, #373737, #111111);
-  padding: 1rem;
-  display: flex;
-`;
-
-const PlaylistDetails = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
-  padding: 0rem 2rem;
-`;
-
-const PlaylistTag = styled.span`
-  letter-spacing: 0.1em;
-  font-weight: 600;
-  color: #a2a2a2;
-`;
-
-const PlaylistTitle = styled.span`
-  font-size: 4rem;
-  font-weight: 900;
-  line-height: 1;
-`;
-
-const PlaylistActions = styled.div`
-  margin-top: 1.5rem;
-  display: flex;
-`;
-
-const PlaylistPlayButton = styled.button`
-  background-color: #1aba53;
-  border: none;
-  color: white;
-  padding: 0.5rem 2.5rem;
-  border-radius: 100rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-`;

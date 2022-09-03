@@ -1,10 +1,10 @@
 import { useEffect, useRef, Dispatch, SetStateAction } from "react";
-import styled from "@emotion/styled";
 import Image from "next/image";
 import emptyHeartImage from "../public/images/emptyHeart.svg";
 import filledHeartImage from "../public/images/filledHeart.svg";
 import { Itrack } from "../types/api";
 import dayjs from "dayjs";
+import { classNames } from "../utils/styles.utils";
 
 interface ItracksProps {
   tracks: Itrack[];
@@ -49,28 +49,34 @@ export default function Tracks({
   }
 
   return (
-    <TracksContainer>
+    <div className="p-4 pb-20">
       {tracks.length > 0 ? (
-        <TracksTable>
-          <TrackRowHead>
+        <div className="w-full box-content table-auto break-words border-collapse flex flex-col">
+          <div className="grid grid-cols-[auto_3fr_2fr_3fr_2fr]">
             <TableLabel>
-              <HeadSpacer />
+              <div className="w-[4.6875rem]" />
             </TableLabel>
             <TableLabel>Title</TableLabel>
             <TableLabel>Artist</TableLabel>
             <TableLabel>Album</TableLabel>
             <TableLabel>Date added</TableLabel>
-          </TrackRowHead>
+          </div>
           {tracks.map((trackInfos: Itrack, index: number) => {
             return (
-              <TrackRow
+              <div
+                className={classNames(
+                  `py-4 border-b border-b-[#1f1f1f] cursor-pointer grid grid-cols-[auto_3fr_2fr_3fr_2fr] rounded-md hover:bg-[#ffffff16] last:border-b-[transparent]`,
+                  trackInfos.track.id === currentTrackId
+                    ? "bg-[#ffffff0d]"
+                    : "bg-transparent"
+                )}
                 onClick={() => {
                   setCurrentTrack(index);
                 }}
-                playedTrack={trackInfos.track.id === currentTrackId}
                 key={trackInfos.track.id}
               >
-                <LikeTableCell
+                <div
+                  className="px-6 flex items-center"
                   onClick={(e) => {
                     console.log(e);
                     e.stopPropagation();
@@ -78,16 +84,16 @@ export default function Tracks({
                   }}
                 >
                   {favoriteTracksIds.includes(trackInfos.track.id) ? (
-                    <TrackLikeButton
-                      as={Image}
+                    <Image
+                      className="cursor-pointer h-6 w-6"
                       src={filledHeartImage}
                       alt="like filled"
                       height="24"
                       width="24"
                     />
                   ) : (
-                    <TrackLikeButton
-                      as={Image}
+                    <Image
+                      className="cursor-pointer h-6 w-6"
                       src={emptyHeartImage}
                       alt="like unfilled"
                       onClick={() => {
@@ -97,104 +103,36 @@ export default function Tracks({
                       width="24"
                     />
                   )}
-                </LikeTableCell>
+                </div>
                 <TableCell>{trackInfos.track.name}</TableCell>
                 <TableCell>{trackInfos.track.artists[0].name}</TableCell>
                 <TableCell>{trackInfos.track.album.name}</TableCell>
-                <TrackReleaseDate>
+                <div className="color-[#a2a2a2] font-semibold">
                   {dayjs(trackInfos.added_at).format("YYYY-MM-DD")}
-                </TrackReleaseDate>
-              </TrackRow>
+                </div>
+              </div>
             );
           })}
-        </TracksTable>
+        </div>
       ) : (
-        <NoTrackText>Aucune piste disponible</NoTrackText>
+        <p className="text-center">Aucune piste disponible</p>
       )}
-    </TracksContainer>
+    </div>
   );
 }
 
-const TracksContainer = styled.div`
-  padding: 1rem;
-  padding-bottom: 5rem;
-`;
+const TableLabel: React.FC = ({ children }) => {
+  return (
+    <div className="text-[#a2a2a2] text-left uppercase tracking-widest font-normal text-sm pb-3 flex">
+      {children}
+    </div>
+  );
+};
 
-const TracksTable = styled.div`
-  width: 100%;
-  box-sizing: content-box;
-  table-layout: auto;
-  overflow-wrap: break-word;
-  border-collapse: collapse;
-  display: flex;
-  flex-direction: column;
-`;
-
-const TrackRowHead = styled.div`
-  display: grid;
-  grid-template-columns: auto 3fr 2fr 3fr 2fr;
-`;
-
-const HeadSpacer = styled.div`
-  width: 4.6875rem;
-`;
-
-const TableLabel = styled.div`
-  color: #a2a2a2;
-  text-align: left;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 400;
-  font-size: 0.875rem;
-  padding-bottom: 0.75rem;
-  display: flex;
-`;
-
-const TrackReleaseDate = styled.div`
-  color: #a2a2a2;
-  font-weight: 600;
-`;
-
-interface ItrackRowProps {
-  playedTrack: boolean;
-}
-
-const TrackRow = styled("div")<ItrackRowProps>`
-  padding: 1rem 0;
-  border-bottom: 1px #1f1f1f solid;
-  background-color: ${(props) =>
-    props.playedTrack ? "#ffffff0d" : "transparent"};
-  cursor: pointer;
-  display: grid;
-  grid-template-columns: auto 3fr 2fr 3fr 2fr;
-  border-radius: 0.25rem;
-  &:last-child {
-    border-bottom: transparent;
-  }
-  &:hover {
-    background-color: #ffffff16;
-  }
-`;
-
-const TableCell = styled.div`
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  padding-right: 2rem;
-`;
-
-const LikeTableCell = styled.div`
-  padding: 0rem 1.5rem;
-  display: flex;
-  align-items: center;
-`;
-
-const TrackLikeButton = styled.img`
-  cursor: pointer;
-  height: 1.5rem;
-  width: 1.5rem;
-`;
-
-const NoTrackText = styled.p`
-  text-align: center;
-`;
+const TableCell: React.FC = ({ children }) => {
+  return (
+    <div className="whitespace-nowrap text-ellipsis overflow-hidden pr-8">
+      {children}
+    </div>
+  );
+};

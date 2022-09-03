@@ -5,7 +5,6 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react";
-import styled from "@emotion/styled";
 import { Itrack, ItrackDetail } from "../types/api";
 import Image from "next/image";
 import playImage from "../public/images/play.svg";
@@ -89,65 +88,42 @@ export default function AudioPlayer({
 
   return (
     <>
-      <NextPrevButton onClick={toPrevTrack}>
+      <button
+        className="w-8 mx-2 py-1 flex justify-center bg-transparent border-none cursor-pointer"
+        onClick={toPrevTrack}
+      >
         <Image alt="previous" src={previousImage} />
-      </NextPrevButton>
-      <PlayButton
+      </button>
+      <button
+        className="w-12 h-12 rounded-full border-none px-0 py-1 flex justify-center items-center bg-transparent cursor-pointer"
         onClick={() => {
           setIsPlaying(!isPlaying);
         }}
       >
         {isPlaying ? (
-          <PlayPauseImage
-            as={Image}
+          <Image
+            className="h-12 w-12"
             src={pauseImage}
             height="48"
             width="48"
             alt=""
           />
         ) : (
-          <PlayPauseImage
-            as={Image}
+          <Image
+            className="h-12 w-12"
             src={playImage}
             height="48"
             width="48"
             alt=""
           />
         )}
-      </PlayButton>
-      <NextPrevButton onClick={toNextTrack}>
+      </button>
+      <button
+        className="w-8 mx-2 py-1 flex justify-center bg-transparent border-none cursor-pointer"
+        onClick={toNextTrack}
+      >
         <Image alt="next" src={nextImage} />
-      </NextPrevButton>
+      </button>
     </>
   );
 }
-
-const PlayButton = styled.button`
-  width: 3rem;
-  height: 3rem;
-  border-radius: 100rem;
-  border: none;
-  padding: 0.25rem 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  cursor: pointer;
-`;
-
-const PlayPauseImage = styled.img`
-  height: 3rem;
-  width: 3rem;
-`;
-
-const NextPrevButton = styled.button`
-  width: 2rem;
-  margin: 0rem 0.5rem;
-  padding: 0.25rem 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-`;
