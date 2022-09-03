@@ -1,36 +1,37 @@
-interface Ialbum {
-  name: string
+export interface Image {
+  height?: any;
+  width?: any;
+  url: string;
 }
 
-interface Iartist {
-  name: string
+export interface Album {
+  name: string;
 }
 
-enum ItrackType {
-  track
+export interface Artist {
+  name: string;
 }
 
-export interface ItrackDetail {
-  id: string
-  album: Ialbum
-  artists: Iartist[]
-  name: string
-  preview_url: string
-  interface: ItrackType
+export interface Track2 {
+  id: string;
+  name: string;
+  album: Album;
+  artists: Artist[];
+  preview_url: string;
+  duration_ms: number;
 }
 
-export interface Itrack {
-  added_at: string
-  track: ItrackDetail
+export interface Track {
+  added_at: Date;
+  track: Track2;
 }
 
-interface Iowner {
-  display_name: string
+export interface Playlist {
+  name: string;
+  images: Image[];
+  tracks: Track[];
 }
 
-export interface Iplaylist {
-  name: string
-  description: string
-  owner: Iowner
-  tracks: Itrack[]
+export interface ApiResponse {
+  playlist: Playlist;
 }
