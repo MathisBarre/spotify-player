@@ -7,6 +7,7 @@ import AudioPlayer from "../components/AudioPlayer";
 import { ApiResponse, Playlist, Track } from "../types/api";
 import { GetServerSideProps } from "next";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useAudioPlayer } from "../hooks/useAudioPlayer";
 
 interface HomeProps {
   playlist: Playlist;
@@ -29,6 +30,9 @@ export default function Home({ playlist }: HomeProps) {
     favoriteTracksIds.includes(track.track.id)
   );
 
+  const { loadAndPlayTrack, pauseCurrentTrack, playCurrentTrack } =
+    useAudioPlayer();
+
   return (
     <main className="min-h-screen">
       <PlaylistHeader
@@ -37,6 +41,20 @@ export default function Home({ playlist }: HomeProps) {
         setIsPlaying={setIsPlaying}
         playlistImageUrl={playlist.images[0].url}
       />
+
+      <button
+        className="block"
+        onClick={() => loadAndPlayTrack(playlist.tracks[0].track.preview_url)}
+      >
+        load and play
+      </button>
+      <button className="block" onClick={() => pauseCurrentTrack()}>
+        pause{" "}
+      </button>
+      <button className="block" onClick={() => playCurrentTrack()}>
+        resume{" "}
+      </button>
+
       <Tracks
         tracks={displayFavoriteTracks ? filteredTracks : displayedTracks}
         currentTrackId={currentTrackId}

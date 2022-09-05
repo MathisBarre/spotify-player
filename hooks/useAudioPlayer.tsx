@@ -1,22 +1,28 @@
-import { useRef } from "react";
-import { TrackDetails } from "../types/api";
+import { useContext } from "react";
+import { AudioRefContext } from "../context/Audio.context";
 
 export function useAudioPlayer() {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioRef = useContext(AudioRefContext);
 
-  function loadAndPlayTrack(trackDetails: TrackDetails) {
+  function loadAndPlayTrack(audioUrl: string) {
+    if (!audioRef?.current) return;
+
     audioRef?.current?.pause();
-    audioRef.current = new Audio(trackDetails.preview_url);
+    audioRef.current = new Audio(audioUrl);
     audioRef.current.play();
   }
 
   function pauseCurrentTrack() {
+    if (!audioRef?.current) return;
+
     audioRef.current?.pause();
   }
 
   function playCurrentTrack() {
+    if (!audioRef?.current) return;
+
     audioRef.current?.play();
   }
 
-  return { playTrack: loadAndPlayTrack, pauseCurrentTrack, playCurrentTrack };
+  return { loadAndPlayTrack, pauseCurrentTrack, playCurrentTrack };
 }
