@@ -5,6 +5,7 @@ import filledHeartImage from "../public/images/filledHeart.svg";
 import { Track } from "../types/api";
 import dayjs from "dayjs";
 import { classNames } from "../utils/styles.utils";
+import { displayArtists } from "../utils/misc.utils";
 
 interface TracksProps {
   tracks: Track[];
@@ -35,8 +36,8 @@ export default function Tracks({
   return (
     <div className="p-4 pb-20">
       {tracks.length > 0 ? (
-        <div className="w-full box-content table-auto break-words border-collapse flex flex-col">
-          <div className="grid grid-cols-[auto_3fr_2fr_3fr_2fr]">
+        <div className="w-full box-content break-words border-collapse flex flex-col">
+          <div className="hidden md:grid md:grid-cols-[auto_3fr_2fr_3fr_2fr]">
             <TableLabel>
               <div className="w-[4.6875rem]" />
             </TableLabel>
@@ -49,7 +50,7 @@ export default function Tracks({
             return (
               <div
                 className={classNames(
-                  `py-4 border-b border-b-spotifyGray-400 cursor-pointer grid grid-cols-[auto_3fr_2fr_3fr_2fr] rounded-md hover:bg-[#ffffff16] last:border-b-[transparent]`,
+                  `py-4 border-b border-b-spotifyGray-400 cursor-pointer flex md:grid md:grid-cols-[auto_3fr_2fr_3fr_2fr] rounded-md hover:bg-[#ffffff16] last:border-b-[transparent]`,
                   trackInfos.track.id === currentTrackId
                     ? "bg-[#ffffff0d]"
                     : "bg-transparent"
@@ -59,11 +60,9 @@ export default function Tracks({
                 }}
                 key={trackInfos.track.id}
               >
-                <div
+                <button
                   className="px-6 flex items-center"
-                  onClick={(e) => {
-                    console.log(e);
-                    e.stopPropagation();
+                  onClick={() => {
                     toggleFavorite(trackInfos.track.id);
                   }}
                 >
@@ -87,13 +86,29 @@ export default function Tracks({
                       width="24"
                     />
                   )}
+                </button>
+
+                {/* Mobile only */}
+                <div className="md:hidden">
+                  <h2 className="text-mg font-bold text-white">
+                    {trackInfos.track.name}
+                  </h2>
+                  <h2 className="text-spotifyGray-100">
+                    {displayArtists(trackInfos.track.artists)}
+                  </h2>
                 </div>
+                {/* Mobile only */}
+
+                {/* Desktop only */}
                 <TableCell>{trackInfos.track.name}</TableCell>
-                <TableCell>{trackInfos.track.artists[0].name}</TableCell>
+                <TableCell>
+                  {displayArtists(trackInfos.track.artists)}
+                </TableCell>
                 <TableCell>{trackInfos.track.album.name}</TableCell>
-                <div className="color-spotifyGray-100 font-semibold">
+                <div className="color-spotifyGray-100 font-semibold hidden md:block">
                   {dayjs(trackInfos.added_at).format("YYYY-MM-DD")}
                 </div>
+                {/* Desktop only */}
               </div>
             );
           })}
@@ -115,7 +130,7 @@ const TableLabel: React.FC = ({ children }) => {
 
 const TableCell: React.FC = ({ children }) => {
   return (
-    <div className="whitespace-nowrap text-ellipsis overflow-hidden pr-8">
+    <div className="whitespace-nowrap text-ellipsis overflow-hidden pr-8 hidden md:block">
       {children}
     </div>
   );
