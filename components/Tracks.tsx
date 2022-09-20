@@ -61,8 +61,9 @@ export default function Tracks({
                 key={trackInfos.track.id}
               >
                 <button
-                  className="px-6 flex items-center"
-                  onClick={() => {
+                  className="px-6 flex items-center min-h-[1.5rem] min-w-[1.5rem]"
+                  onClick={(e) => {
+                    e.stopPropagation();
                     toggleFavorite(trackInfos.track.id);
                   }}
                 >
@@ -89,11 +90,11 @@ export default function Tracks({
                 </button>
 
                 {/* Mobile only */}
-                <div className="md:hidden">
-                  <h2 className="text-mg font-bold text-white">
+                <div className="md:hidden flex-1 overflow-hidden">
+                  <h2 className="text-mg font-bold text-white whitespace-nowrap text-ellipsis overflow-hidden">
                     {trackInfos.track.name}
                   </h2>
-                  <h2 className="text-spotifyGray-100">
+                  <h2 className="text-spotifyGray-100 whitespace-nowrap text-ellipsis overflow-hidden">
                     {displayArtists(trackInfos.track.artists)}
                   </h2>
                 </div>

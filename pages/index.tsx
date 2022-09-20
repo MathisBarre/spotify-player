@@ -44,7 +44,7 @@ export default function Home({ playlist }: HomeProps) {
         setFavoriteTracksIds={setFavoriteTracksIds}
         setCurrentTrack={setTrackIndex}
       />
-      <footer className="bg-spotifyGray-500 h-16 w-full border-t border-spotifyGray-300 fixed left-0 bottom-0 flex items-center justify-between md:justify-center px-4">
+      <footer className="bg-spotifyGray-500 h-16 w-full border-t border-spotifyGray-300 fixed left-0 bottom-0 flex items-center justify-around md:justify-center">
         <AudioPlayer
           isPlaying={isPlaying}
           setIsPlaying={setIsPlaying}
