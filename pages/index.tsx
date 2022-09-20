@@ -44,7 +44,7 @@ export default function Home({ playlist }: HomeProps) {
         setFavoriteTracksIds={setFavoriteTracksIds}
         setCurrentTrack={setTrackIndex}
       />
-      <footer className="bg-spotifyGray-500 h-16 w-full border-t border-spotifyGray-300 fixed left-0 bottom-0 flex items-center justify-center">
+      <footer className="bg-spotifyGray-500 h-16 w-full border-t border-spotifyGray-300 fixed left-0 bottom-0 flex items-center justify-around md:justify-center">
         <AudioPlayer
           isPlaying={isPlaying}
           setIsPlaying={setIsPlaying}
@@ -54,7 +54,7 @@ export default function Home({ playlist }: HomeProps) {
           setTrackIndex={setTrackIndex}
         />
         <button
-          className="bg-transparent border-2 border-white text-white px-2 py-1 rounded-full absolute right-16 cursor-pointer text-xs font-bold"
+          className="bg-transparent border-2 border-white text-white px-2 py-1 rounded-full md:absolute right-16 cursor-pointer text-xs font-bold"
           onClick={() => {
             setDisplayFavoriteTracks(
               (currentDisplayFavoriteTracksValue) =>

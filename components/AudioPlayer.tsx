@@ -87,7 +87,7 @@ export default function AudioPlayer({
   }, []);
 
   return (
-    <>
+    <div className="flex items-center justify-center">
       <button
         className="w-8 mx-2 py-1 flex justify-center bg-transparent border-none cursor-pointer"
         onClick={toPrevTrack}
@@ -124,6 +124,6 @@ export default function AudioPlayer({
       >
         <Image alt="next" src={nextImage} />
       </button>
-    </>
+    </div>
   );
 }
